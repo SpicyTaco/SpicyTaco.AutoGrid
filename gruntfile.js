@@ -20,10 +20,10 @@ module.exports = function(grunt)
 		            product: 'Space Squirrel AutoGrid', 
 		            copyright: 'Copyright 3002 © Space Squirrel', 
 		            trademark: 'Space Squirrel', 
-		            culture: 'div-MV',
 		            version: '0.1.0',
 		            fileVersion: '0.1.0'
                 }
             }
+        }
     });
 }
