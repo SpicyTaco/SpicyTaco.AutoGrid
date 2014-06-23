@@ -27,6 +27,12 @@
   "homepage": "https://github.com/kmcginnes/AutoGrid",
   "dependencies": {
     "grunt": "^0.4.5",
-    "grunt-dotnet-assembly-info": "^1.0.12"
+    "grunt-dotnet-assembly-info": "^1.0.12",
+    "grunt-msbuild": "^0.2.2"
+  },
+  "devDependencies": {
+    "grunt-dotnet-mspec": "^0.1.0",
+    "grunt-nuget": "^0.1.3",
+    "time-grunt": "^0.3.2"
   }
 }

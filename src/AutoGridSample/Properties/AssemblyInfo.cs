@@ -9,7 +9,7 @@ using System.Windows;
 // associated with an assembly.
 [assembly: AssemblyTitle("Space Squirrel AutoGrid")]
 [assembly: AssemblyDescription("Magical replacement for the default WPF Grid.")]
-[assembly: AssemblyConfiguration("Release")]
+[assembly: AssemblyConfiguration("Debug")]
 [assembly: AssemblyCompany("Space Squirrel")]
 [assembly: AssemblyProduct("Space Squirrel AutoGrid")]
 [assembly: AssemblyCopyright("Copyright 3002 © Space Squirrel")]

@@ -130,7 +130,7 @@ publish/
 *.pubxml
 
 # NuGet Packages
-packages/*
+**/packages/*
 *.nupkg
 ## TODO: If the tool you use requires repositories.config
 ## uncomment the next line
@@ -190,3 +190,6 @@ FakesAssemblies/
 *~
 *.swp
 .ruby-version
+
+# Build Script Artifacts
+reports/*
