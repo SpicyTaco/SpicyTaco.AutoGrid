@@ -1,0 +1,29 @@
+﻿<Window x:Class="AutoGridSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:autoGrid="clr-namespace:AutoGrid;assembly=AutoGrid"
+        SizeToContent="WidthAndHeight"
+        Title="MainWindow">
+    <autoGrid:AutoGrid Columns="*" ChildMargin="5">
+        <TextBlock Text="Here is where you can throw some simple description text for your form"/>
+        <autoGrid:AutoGrid Columns="*,200,*,200" ChildMargin="5" ChildHorizontalAlignment="Right">
+            <Label Content="First Name"/>
+            <TextBox/>
+            <Label Content="Last Name"/>
+            <TextBox/>
+            <Label Content="Email"/>
+            <TextBox/>
+            <Label Content="Phone Number"/>
+            <TextBox/>
+            <Label Content="Home Address"/>
+            <TextBox/>
+            <Label Content="Country"/>
+            <TextBox/>
+        </autoGrid:AutoGrid>
+        <autoGrid:AutoGrid Columns="*,75,75" ChildMargin="5">
+            <TextBlock/>
+            <Button Content="Save"/>
+            <Button Content="Cancel"/>
+        </autoGrid:AutoGrid>
+    </autoGrid:AutoGrid>
+</Window>
