@@ -6,7 +6,12 @@ A magical replacement for the built in WPF Grid
 Usage Examples
 --------------
 
-Instead of
+In order to get
+
+[](v2_gridlayout.png)
+[Sourced from the awesome WpfTutorials](http://wpftutorial.net/GridLayout.html)
+
+You would typically write XAML that looked like
 
 ``` XML
 <Grid>
