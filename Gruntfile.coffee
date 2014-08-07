@@ -37,6 +37,7 @@ module.exports = (grunt) ->
   grunt.task.registerTask 'banner', () -> 
     console.log(grunt.file.read('banner.txt'))
 
+  # grunt.loadNpmTasks 'grunt-exec'
   grunt.loadNpmTasks 'grunt-dotnet-assembly-info'
   grunt.loadNpmTasks 'grunt-msbuild'
   grunt.loadNpmTasks 'grunt-nuget'
