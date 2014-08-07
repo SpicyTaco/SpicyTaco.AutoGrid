@@ -52,3 +52,22 @@ You can simply write
             MinWidth="80" Margin="3" Content="Send"  />
 </st:AutoGrid>
 ```
+
+I personally like to put my `Label`s with the element they are labeling. So just remove the `Orientation` which defaults to `Horizontal` and rearrange the elements
+
+``` XML
+<st:AutoGrid Rows="Auto,Auto,*,28" Columns="Auto,200">
+    <Label Content="Name:"/>
+    <TextBox Margin="3" />
+    
+    <Label Content="E-Mail:"/>
+    <TextBox Margin="3" />
+    
+    <Label Content="Comment:"/>
+    <TextBox Margin="3" />
+    
+    <Label /> <!-- Empty placeholder for lower left corner -->
+    <Button HorizontalAlignment="Right" 
+            MinWidth="80" Margin="3" Content="Send"  />
+</st:AutoGrid>
+```
