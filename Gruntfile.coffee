@@ -1,4 +1,4 @@
-module.exports = (grunt) -> 
+module.exports = (grunt) ->
   require('time-grunt')(grunt)
 
   grunt.initConfig
@@ -33,8 +33,12 @@ module.exports = (grunt) ->
         output: 'reports/mspec'
       specs:
         src: ['src/**/bin/Debug/*.Tests.dll']
+    nugetpack:
+      dist:
+        src: 'src/AutoGrid/AutoGrid.nuspec'
+        dest: '.'
 
-  grunt.task.registerTask 'banner', () -> 
+  grunt.task.registerTask 'banner', () ->
     console.log(grunt.file.read('banner.txt'))
 
   # grunt.loadNpmTasks 'grunt-exec'
@@ -44,6 +48,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-dotnet-mspec'
 
   grunt.registerTask 'default', ['ci']
-  grunt.registerTask 'ci', ['banner','assemblyinfo', 'nugetrestore', 'msbuild', 'mspec']
+  grunt.registerTask 'ci', ['banner','assemblyinfo','nugetrestore','msbuild','mspec','nugetpack']
 
   null
