@@ -16,6 +16,8 @@ module.exports = (grunt) ->
         push: true
         pushTo: 'upstream'
         gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d'
+    clean:
+      build: ['src/**/bin', 'src/**/obj', '*.nupkg']
     assemblyinfo:
       options:
         files: ['src/AutoGrid.sln']
@@ -51,18 +53,23 @@ module.exports = (grunt) ->
       dist:
         src: 'src/AutoGrid/AutoGrid.csproj'
         dest: '.'
+    nugetpush:
+      dist:
+        src: '*.nupkg'
 
   grunt.task.registerTask 'banner', () ->
     console.log(grunt.file.read('banner.txt'))
 
   # grunt.loadNpmTasks 'grunt-exec'
   grunt.loadNpmTasks 'grunt-bump'
+  grunt.loadNpmTasks 'grunt-contrib-clean'
   grunt.loadNpmTasks 'grunt-dotnet-assembly-info'
   grunt.loadNpmTasks 'grunt-msbuild'
   grunt.loadNpmTasks 'grunt-nuget'
   grunt.loadNpmTasks 'grunt-dotnet-mspec'
 
   grunt.registerTask 'default', ['ci']
-  grunt.registerTask 'ci', ['banner','assemblyinfo','nugetrestore','msbuild','mspec','nugetpack']
+  grunt.registerTask 'publish', ['nugetpush']
+  grunt.registerTask 'ci', ['banner','clean','assemblyinfo','nugetrestore','msbuild','mspec','nugetpack']
 
   null
