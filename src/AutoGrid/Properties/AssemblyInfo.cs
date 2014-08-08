@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SpicyTaco.AutoGrid")]
 [assembly: AssemblyDescription("Magical replacement for the default WPF Grid.")]
 [assembly: AssemblyConfiguration("Debug")]
-[assembly: AssemblyCompany("Spicy Taco")]
+[assembly: AssemblyCompany("SpicyTaco")]
 [assembly: AssemblyProduct("SpicyTaco.AutoGrid")]
-[assembly: AssemblyCopyright("Copyright 2014 © ")]
-[assembly: AssemblyTrademark("Spicy Taco")]
+[assembly: AssemblyCopyright("Copyright 2014 © SpicyTaco")]
+[assembly: AssemblyTrademark("SpicyTaco")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
