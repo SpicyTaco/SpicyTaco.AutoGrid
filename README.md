@@ -53,22 +53,22 @@ You can simply write
 </st:AutoGrid>
 ```
 
-I personally like to put my `Label`s with the element they are labeling. So just remove the `Orientation` which defaults to `Horizontal` and rearrange the elements
+I personally like to put my `Label`s with the element they are labeling. So just remove the `Orientation` which defaults to `Horizontal` and rearrange the elements. You can also pull the common margin up, defining it only once.
 
 ``` XML
-<st:AutoGrid Rows="Auto,Auto,*,28" Columns="Auto,200">
+<st:AutoGrid Rows="Auto,Auto,*,28" Columns="Auto,200" ChildMargin="3">
     <Label Content="Name:"/>
-    <TextBox Margin="3" />
-    
+    <TextBox/>
+
     <Label Content="E-Mail:"/>
-    <TextBox Margin="3" />
-    
+    <TextBox/>
+
     <Label Content="Comment:"/>
-    <TextBox Margin="3" />
-    
-    <Label /> <!-- Empty placeholder for lower left corner -->
+    <TextBox/>
+
+    <Label /><!-- Empty placeholder for lower left corner -->
     <Button HorizontalAlignment="Right" 
-            MinWidth="80" Margin="3" Content="Send"  />
+            MinWidth="80" Content="Send"  />
 </st:AutoGrid>
 ```
 
