@@ -1,6 +1,6 @@
 {
-  "name": "AutoGrid",
-  "version": "0.1.0",
+  "name": "SpicyTaco.AutoGrid",
+  "version": "0.9.0",
   "description": "Magical replacement for the default WPF Grid.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kmcginnes/AutoGrid.git"
+    "url": "https://github.com/kmcginnes/SpicyTaco.AutoGrid.git"
   },
   "keywords": [
     "WPF",
@@ -22,9 +22,9 @@
   "author": "Kris McGinnes",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kmcginnes/AutoGrid/issues"
+    "url": "https://github.com/kmcginnes/SpicyTaco.AutoGrid/issues"
   },
-  "homepage": "https://github.com/kmcginnes/AutoGrid",
+  "homepage": "https://github.com/kmcginnes/SpicyTaco.AutoGrid",
   "dependencies": {
     "grunt": "^0.4.5",
     "grunt-dotnet-assembly-info": "^1.0.12",
