@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Spicy Taco AutoGrid")]
+[assembly: AssemblyTitle("SpicyTaco.AutoGrid")]
 [assembly: AssemblyDescription("Magical replacement for the default WPF Grid.")]
 [assembly: AssemblyConfiguration("Debug")]
 [assembly: AssemblyCompany("Spicy Taco")]
-[assembly: AssemblyProduct("Spicy Taco AutoGrid")]
-[assembly: AssemblyCopyright("Copyright 2014 © Spicy Taco")]
+[assembly: AssemblyProduct("SpicyTaco.AutoGrid")]
+[assembly: AssemblyCopyright("Copyright 2014 © ")]
 [assembly: AssemblyTrademark("Spicy Taco")]
 [assembly: AssemblyCulture("")]
 

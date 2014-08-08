@@ -20,6 +20,7 @@
     "Control"
   ],
   "author": "Kris McGinnes",
+  "company": "SpicyTaco",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kmcginnes/SpicyTaco.AutoGrid/issues"
@@ -31,6 +32,7 @@
     "grunt-msbuild": "^0.2.2"
   },
   "devDependencies": {
+    "grunt-bump": "0.0.15",
     "grunt-dotnet-mspec": "^0.1.0",
     "grunt-exec": "^0.4.5",
     "grunt-nuget": "^0.1.3",
