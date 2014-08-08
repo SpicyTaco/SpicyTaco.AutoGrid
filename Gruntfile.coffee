@@ -69,7 +69,9 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-dotnet-mspec'
 
   grunt.registerTask 'default', ['ci']
-  grunt.registerTask 'publish', ['nugetpush']
+  grunt.registerTask 'publish', ['banner','bump','nugetpush']
+  grunt.registerTask 'release', ['publish']
+  grunt.registerTask 'deploy', ['publish']
   grunt.registerTask 'ci', ['banner','clean','assemblyinfo','nugetrestore','msbuild','mspec','nugetpack']
 
   null
