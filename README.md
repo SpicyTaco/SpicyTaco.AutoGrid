@@ -75,5 +75,5 @@ I personally like to put my `Label`s with the element they are labeling. So just
 Credits
 -------
 
-![](icon/icon_61620.png =128x128)<br/>
+<img src="icon/icon_61620.png" alt="Icon" style="width: 128px; height: 128px;"/><br/>
 [Furious designed by Matt Brooks from the Noun Project](http://thenounproject.com/Mattebrooks/icon/61620/)
