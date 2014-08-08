@@ -71,3 +71,9 @@ I personally like to put my `Label`s with the element they are labeling. So just
             MinWidth="80" Margin="3" Content="Send"  />
 </st:AutoGrid>
 ```
+
+Credits
+-------
+
+![](icon/icon_47977.png =128x128)
+Fire designed by Julien Deveaux from the Noun Project
