@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Debug")]
 [assembly: AssemblyCompany("Spicy Taco")]
 [assembly: AssemblyProduct("Spicy Taco AutoGrid")]
-[assembly: AssemblyCopyright("Copyright 3002 © Spicy Taco")]
+[assembly: AssemblyCopyright("Copyright 2014 © Spicy Taco")]
 [assembly: AssemblyTrademark("Spicy Taco")]
 [assembly: AssemblyCulture("")]
 
