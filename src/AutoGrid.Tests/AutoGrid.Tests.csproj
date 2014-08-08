@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AutoGrid.Tests</RootNamespace>
-    <AssemblyName>AutoGrid.Tests</AssemblyName>
+    <AssemblyName>SpicyTaco.AutoGrid.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

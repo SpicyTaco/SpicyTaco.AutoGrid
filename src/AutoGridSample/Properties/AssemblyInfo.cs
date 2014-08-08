@@ -7,13 +7,13 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Space Squirrel AutoGrid")]
+[assembly: AssemblyTitle("Spicy Taco AutoGrid")]
 [assembly: AssemblyDescription("Magical replacement for the default WPF Grid.")]
 [assembly: AssemblyConfiguration("Debug")]
-[assembly: AssemblyCompany("Space Squirrel")]
-[assembly: AssemblyProduct("Space Squirrel AutoGrid")]
-[assembly: AssemblyCopyright("Copyright 3002 © Space Squirrel")]
-[assembly: AssemblyTrademark("Space Squirrel")]
+[assembly: AssemblyCompany("Spicy Taco")]
+[assembly: AssemblyProduct("Spicy Taco AutoGrid")]
+[assembly: AssemblyCopyright("Copyright 3002 © Spicy Taco")]
+[assembly: AssemblyTrademark("Spicy Taco")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -50,6 +50,6 @@ using System.Windows;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("0.1.0")]
-[assembly: AssemblyVersion("0.1.0")]
-[assembly: AssemblyFileVersion("0.1.0")]
+// [assembly: AssemblyVersion("0.9.0")]
+[assembly: AssemblyVersion("0.9.0")]
+[assembly: AssemblyFileVersion("0.9.0")]
