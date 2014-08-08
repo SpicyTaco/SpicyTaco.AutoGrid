@@ -11,7 +11,7 @@ module.exports = (grunt) ->
           configuration: 'Debug'
           company: 'Spicy Taco'
           product: 'Spicy Taco AutoGrid'
-          copyright: 'Copyright 3002 © Spicy Taco'
+          copyright: 'Copyright 2014 © Spicy Taco'
           trademark: 'Spicy Taco'
           version: '0.9.0'
           fileVersion: '0.9.0'
@@ -35,7 +35,7 @@ module.exports = (grunt) ->
         src: ['src/**/bin/Debug/*.Tests.dll']
     nugetpack:
       dist:
-        src: 'src/AutoGrid/AutoGrid.nuspec'
+        src: 'src/AutoGrid/AutoGrid.csproj'
         dest: '.'
 
   grunt.task.registerTask 'banner', () ->
