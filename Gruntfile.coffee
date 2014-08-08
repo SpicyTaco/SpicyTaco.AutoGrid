@@ -6,15 +6,15 @@ module.exports = (grunt) ->
       options:
         files: ['src/AutoGrid.sln']
         info:
-          title: 'Space Squirrel AutoGrid'
+          title: 'Spicy Taco AutoGrid'
           description: 'Magical replacement for the default WPF Grid.'
           configuration: 'Debug'
-          company: 'Space Squirrel'
-          product: 'Space Squirrel AutoGrid'
-          copyright: 'Copyright 3002 © Space Squirrel'
-          trademark: 'Space Squirrel'
-          version: '0.1.0'
-          fileVersion: '0.1.0'
+          company: 'Spicy Taco'
+          product: 'Spicy Taco AutoGrid'
+          copyright: 'Copyright 3002 © Spicy Taco'
+          trademark: 'Spicy Taco'
+          version: '0.9.0'
+          fileVersion: '0.9.0'
     nugetrestore:
       restore:
         src: 'src/AutoGrid.sln'
