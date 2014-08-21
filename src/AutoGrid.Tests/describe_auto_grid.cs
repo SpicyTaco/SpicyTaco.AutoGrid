@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using FluentAssertions;
 using Machine.Fakes;
 using Machine.Specifications;
 using Should;
