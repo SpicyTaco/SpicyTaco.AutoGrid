@@ -2,11 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:st="clr-namespace:AutoGrid;assembly=SpicyTaco.AutoGrid"
-        SizeToContent="WidthAndHeight"
+        SizeToContent="Height"
+        Width="600"
         Title="MainWindow">
+    <Window.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
+    </Window.Resources>
     <st:AutoGrid Columns="*" ChildMargin="5">
         <TextBlock Text="Here is where you can throw some simple description text for your form"/>
-        <st:AutoGrid Columns="*,200,*,200" ChildMargin="5" ChildHorizontalAlignment="Right">
+        <st:AutoGrid Columns="*,200,*,200" ChildMargin="5">
             <Label Content="First Name"/>
             <TextBox/>
             <Label Content="Last Name"/>
@@ -25,5 +31,6 @@
             <Button Content="Save"/>
             <Button Content="Cancel"/>
         </st:AutoGrid>
+        <TextBlock TextWrapping="Wrap" Text="Lebowski ipsum you think veer kidding und making mit de funny stuff? Dolor sit amet, consectetur. Are they gonna hurt us, Walter? Adipiscing elit praesent ac magna justo pellentesque ac. I mean his wife goes out and owes money and they pee on my rug. Lectus quis elit blandit fringilla a ut turpis praesent felis ligula, malesuada suscipit malesuada. And so, Theodore Donald Karabotsos, in accordance with what we think your dying wishes might well have been, we commit your mortal remains to the bosom of the Pacific Ocean, which you loved so well. Non, ultrices non urna sed orci ipsum, placerat id condimentum rutrum, rhoncus ac lorem."/>
     </st:AutoGrid>
 </Window>
