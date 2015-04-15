@@ -1,6 +1,6 @@
 {
   "name": "SpicyTaco.AutoGrid",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Magical replacement for the default WPF Grid.",
   "main": "index.js",
   "scripts": {

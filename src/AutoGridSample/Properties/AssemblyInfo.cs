@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("Debug")]
 [assembly: AssemblyCompany("SpicyTaco")]
 [assembly: AssemblyProduct("SpicyTaco.AutoGrid")]
-[assembly: AssemblyCopyright("Copyright 2014 © SpicyTaco")]
+[assembly: AssemblyCopyright("Copyright 2015 © SpicyTaco")]
 [assembly: AssemblyTrademark("SpicyTaco")]
 [assembly: AssemblyCulture("")]
 
@@ -50,6 +50,6 @@ using System.Windows;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("0.9.0")]
-[assembly: AssemblyVersion("0.9.0")]
-[assembly: AssemblyFileVersion("0.9.0")]
+// [assembly: AssemblyVersion("0.9.1")]
+[assembly: AssemblyVersion("0.9.1")]
+[assembly: AssemblyFileVersion("0.9.1")]

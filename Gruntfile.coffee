@@ -27,7 +27,7 @@ module.exports = (grunt) ->
           configuration: 'Debug'
           company: '<%= pkg.company %>'
           product: '<%= pkg.name %>'
-          copyright: 'Copyright 2014 © <%= pkg.company %>'
+          copyright: 'Copyright 2015 © <%= pkg.company %>'
           trademark: '<%= pkg.company %>'
           version: '<%= pkg.version %>'
           fileVersion: '<%= pkg.version %>'
