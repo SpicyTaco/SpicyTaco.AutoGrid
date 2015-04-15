@@ -282,4 +282,33 @@ namespace AutoGrid.Tests
         It should_make_fifth_child_row_index_two = () => Grid.GetRow(Subject.Children[4]).ShouldEqual(2);
         It should_make_fifth_child_column_index_zero = () => Grid.GetColumn(Subject.Children[4]).ShouldEqual(0);
     }
+
+    public class when_adding_additional_elements_outside_auto_assignment : WithSubject<AutoGrid>
+    {
+        Establish context = () =>
+        {
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            var additionalElement = new TextBlock();
+            AutoGrid.SetAutoIndex(additionalElement, false);
+            Grid.SetColumn(additionalElement, 0);
+            Grid.SetRow(additionalElement, 0);
+            Grid.SetColumnSpan(additionalElement, 1);
+            Subject.Children.Add(additionalElement);
+            Subject.Columns = "100,100";
+            Subject.PerformLayout();
+        };
+
+        It should_have_one_row = () => Subject.RowDefinitions.Count.ShouldEqual(1);
+        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.ShouldEqual(2);
+
+        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).ShouldEqual(0);
+        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).ShouldEqual(0);
+
+        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).ShouldEqual(0);
+        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).ShouldEqual(1);
+
+        It should_not_change_third_child_row_index = () => Grid.GetRow(Subject.Children[2]).ShouldEqual(0);
+        It should_not_change_third_child_column_index = () => Grid.GetColumn(Subject.Children[2]).ShouldEqual(0);
+    }
 }

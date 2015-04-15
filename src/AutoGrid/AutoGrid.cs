@@ -117,6 +117,21 @@ namespace AutoGrid
             set { SetValue(RowsProperty, value); }
         }
 
+        // AutoIndex attached property
+
+        public static readonly DependencyProperty AutoIndexProperty = DependencyProperty.RegisterAttached(
+            "AutoIndex", typeof (bool), typeof (AutoGrid), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+
+        public static void SetAutoIndex(DependencyObject element, bool value)
+        {
+            element.SetValue(AutoIndexProperty, value);
+        }
+
+        public static bool GetAutoIndex(DependencyObject element)
+        {
+            return (bool) element.GetValue(AutoIndexProperty);
+        }
+
         /// <summary>
         /// Handles the column count changed event
         /// </summary>
@@ -358,6 +373,10 @@ namespace AutoGrid
                     int cellCount = 0;
                     foreach (UIElement child in Children)
                     {
+                        if (GetAutoIndex(child) == false)
+                        {
+                            continue;
+                        }
                         cellCount += (ColumnDefinitions.Count != 0) ? Grid.GetColumnSpan(child) : Grid.GetRowSpan(child);
                     }
 
@@ -396,7 +415,7 @@ namespace AutoGrid
                 int cellPosition = 0;
                 foreach (UIElement child in Children)
                 {
-                    if (IsAutoIndexing)
+                    if (IsAutoIndexing && GetAutoIndex(child) == true)
                     {
                         if (!isVertical)
                         {
