@@ -135,7 +135,7 @@ namespace AutoGrid
         // RowHeight override attached property
 
         public static readonly DependencyProperty RowHeightOverrideProperty = DependencyProperty.RegisterAttached(
-            "RowHeightOverride", typeof (GridLength?), typeof (AutoGrid), new PropertyMetadata(default(GridLength?)));
+            "RowHeightOverride", typeof (GridLength?), typeof (AutoGrid), new FrameworkPropertyMetadata(default(GridLength?), FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
         public static void SetRowHeightOverride(DependencyObject element, GridLength? value)
         {
@@ -148,7 +148,7 @@ namespace AutoGrid
         }
 
         public static readonly DependencyProperty ColumnWidthOverrideProperty = DependencyProperty.RegisterAttached(
-            "ColumnWidthOverride", typeof (GridLength?), typeof (AutoGrid), new PropertyMetadata(default(GridLength?)));
+            "ColumnWidthOverride", typeof (GridLength?), typeof (AutoGrid), new FrameworkPropertyMetadata(default(GridLength?), FrameworkPropertyMetadataOptions.AffectsParentMeasure));
 
         public static void SetColumnWidthOverride(DependencyObject element, GridLength? value)
         {
