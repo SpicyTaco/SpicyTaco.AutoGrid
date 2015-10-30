@@ -30,8 +30,8 @@
             <Label Content="Country"/>
             <TextBox/>
         </st:AutoGrid>
-        <st:AutoGrid Columns="*,Auto,Auto" ChildMargin="5">
-            <TextBlock/>
+        <st:AutoGrid ColumnWidth="Auto" ChildMargin="5">
+            <TextBlock st:AutoGrid.ColumnWidthOverride="*"/>
             <Button Content="Save"/>
             <Button Content="Cancel"/>
             <Button Content="Info" st:AutoGrid.AutoIndex="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
