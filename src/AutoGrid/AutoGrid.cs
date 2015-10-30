@@ -132,6 +132,34 @@ namespace AutoGrid
             return (bool) element.GetValue(AutoIndexProperty);
         }
 
+        // RowHeight override attached property
+
+        public static readonly DependencyProperty RowHeightOverrideProperty = DependencyProperty.RegisterAttached(
+            "RowHeightOverride", typeof (GridLength?), typeof (AutoGrid), new PropertyMetadata(default(GridLength?)));
+
+        public static void SetRowHeightOverride(DependencyObject element, GridLength? value)
+        {
+            element.SetValue(RowHeightOverrideProperty, value);
+        }
+
+        public static GridLength? GetRowHeightOverride(DependencyObject element)
+        {
+            return (GridLength?) element.GetValue(RowHeightOverrideProperty);
+        }
+
+        public static readonly DependencyProperty ColumnWidthOverrideProperty = DependencyProperty.RegisterAttached(
+            "ColumnWidthOverride", typeof (GridLength?), typeof (AutoGrid), new PropertyMetadata(default(GridLength?)));
+
+        public static void SetColumnWidthOverride(DependencyObject element, GridLength? value)
+        {
+            element.SetValue(ColumnWidthOverrideProperty, value);
+        }
+
+        public static GridLength? GetColumnWidthOverride(DependencyObject element)
+        {
+            return (GridLength?) element.GetValue(ColumnWidthOverrideProperty);
+        }
+
         /// <summary>
         /// Handles the column count changed event
         /// </summary>
@@ -419,14 +447,46 @@ namespace AutoGrid
                     {
                         if (!isVertical)
                         {
-                            Grid.SetRow(child, cellPosition / ColumnDefinitions.Count);
-                            Grid.SetColumn(child, cellPosition % ColumnDefinitions.Count);
+                            var rowIndex = cellPosition / ColumnDefinitions.Count;
+                            Grid.SetRow(child, rowIndex);
+
+                            var overrideRowHeight = AutoGrid.GetRowHeightOverride(child);
+                            if (overrideRowHeight != null)
+                            {
+                                RowDefinitions[rowIndex].Height = overrideRowHeight.Value;
+                            }
+
+                            var columnIndex = cellPosition % ColumnDefinitions.Count;
+                            Grid.SetColumn(child, columnIndex);
+                            
+                            var overrideColumnWidth = AutoGrid.GetColumnWidthOverride(child);
+                            if (overrideColumnWidth != null)
+                            {
+                                ColumnDefinitions[columnIndex].Width = overrideColumnWidth.Value;
+                            }
+
                             cellPosition += Grid.GetColumnSpan(child);
                         }
                         else
                         {
-                            Grid.SetRow(child, cellPosition % RowDefinitions.Count);
-                            Grid.SetColumn(child, cellPosition / RowDefinitions.Count);
+                            var rowIndex = cellPosition % RowDefinitions.Count;
+                            Grid.SetRow(child, rowIndex);
+
+                            var overrideRowHeight = AutoGrid.GetRowHeightOverride(child);
+                            if (overrideRowHeight != null)
+                            {
+                                RowDefinitions[rowIndex].Height = overrideRowHeight.Value;
+                            }
+
+                            var columnIndex = cellPosition / RowDefinitions.Count;
+                            Grid.SetColumn(child, columnIndex);
+
+                            var overrideColumnWidth = AutoGrid.GetColumnWidthOverride(child);
+                            if (overrideColumnWidth != null)
+                            {
+                                ColumnDefinitions[columnIndex].Width = overrideColumnWidth.Value;
+                            }
+
                             cellPosition += Grid.GetRowSpan(child);
                         }
                     }

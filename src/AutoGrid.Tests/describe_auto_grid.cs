@@ -310,4 +310,94 @@ namespace AutoGrid.Tests
         It should_not_change_third_child_row_index = () => Grid.GetRow(Subject.Children[2]).Should().Be(0);
         It should_not_change_third_child_column_index = () => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
     }
+
+    public class when_overriding_row_height : WithSubject<AutoGrid>
+    {
+        Establish context = () =>
+        {
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            var additionalElement = new TextBlock();
+            AutoGrid.SetRowHeightOverride(additionalElement, new GridLength(1, GridUnitType.Star));
+            Subject.Children.Add(additionalElement);
+            Subject.Columns = "*";
+            Subject.RowHeight = GridLength.Auto;
+            Subject.PerformLayout();
+        };
+
+        It should_have_three_rows = () => Subject.RowDefinitions.Count.Should().Be(3);
+        It should_have_one_column = () => Subject.ColumnDefinitions.Count.Should().Be(1);
+
+        It should_make_first_child_row_height_auto = () => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
+        It should_make_second_child_row_height_auto = () => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
+        It should_make_third_child_row_height_star = () => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
+    }
+
+    public class when_overriding_column_width : WithSubject<AutoGrid>
+    {
+        Establish context = () =>
+        {
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            var additionalElement = new TextBlock();
+            AutoGrid.SetColumnWidthOverride(additionalElement, new GridLength(1, GridUnitType.Star));
+            Subject.Children.Add(additionalElement);
+            Subject.Rows = "*";
+            Subject.ColumnWidth = GridLength.Auto;
+            Subject.PerformLayout();
+        };
+
+        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
+        It should_have_three_columns = () => Subject.ColumnDefinitions.Count.Should().Be(3);
+
+        It should_make_first_child_column_width_auto = () => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
+        It should_make_second_child_column_width_auto = () => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
+        It should_make_third_child_column_width_star = () => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
+    }
+
+    public class when_overriding_row_height_and_vertical : WithSubject<AutoGrid>
+    {
+        Establish context = () =>
+        {
+            Subject.Orientation = Orientation.Vertical;
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            var additionalElement = new TextBlock();
+            AutoGrid.SetRowHeightOverride(additionalElement, new GridLength(1, GridUnitType.Star));
+            Subject.Children.Add(additionalElement);
+            Subject.Columns = "*";
+            Subject.RowHeight = GridLength.Auto;
+            Subject.PerformLayout();
+        };
+
+        It should_have_three_rows = () => Subject.RowDefinitions.Count.Should().Be(3);
+        It should_have_one_column = () => Subject.ColumnDefinitions.Count.Should().Be(1);
+
+        It should_make_first_child_row_height_auto = () => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
+        It should_make_second_child_row_height_auto = () => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
+        It should_make_third_child_row_height_star = () => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
+    }
+
+    public class when_overriding_column_width_and_vertical : WithSubject<AutoGrid>
+    {
+        Establish context = () =>
+        {
+            Subject.Orientation = Orientation.Vertical;
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            var additionalElement = new TextBlock();
+            AutoGrid.SetColumnWidthOverride(additionalElement, new GridLength(1, GridUnitType.Star));
+            Subject.Children.Add(additionalElement);
+            Subject.Rows = "*";
+            Subject.ColumnWidth = GridLength.Auto;
+            Subject.PerformLayout();
+        };
+
+        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
+        It should_have_three_columns = () => Subject.ColumnDefinitions.Count.Should().Be(3);
+
+        It should_make_first_child_column_width_auto = () => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
+        It should_make_second_child_column_width_auto = () => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
+        It should_make_third_child_column_width_star = () => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
+    }
 }
