@@ -135,7 +135,8 @@ namespace AutoGrid
         // RowHeight override attached property
 
         public static readonly DependencyProperty RowHeightOverrideProperty = DependencyProperty.RegisterAttached(
-            "RowHeightOverride", typeof (GridLength?), typeof (AutoGrid), new FrameworkPropertyMetadata(default(GridLength?), FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+            "RowHeightOverride", typeof (GridLength?), typeof (AutoGrid), 
+            new FrameworkPropertyMetadata(default(GridLength?), FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         public static void SetRowHeightOverride(DependencyObject element, GridLength? value)
         {
@@ -148,7 +149,8 @@ namespace AutoGrid
         }
 
         public static readonly DependencyProperty ColumnWidthOverrideProperty = DependencyProperty.RegisterAttached(
-            "ColumnWidthOverride", typeof (GridLength?), typeof (AutoGrid), new FrameworkPropertyMetadata(default(GridLength?), FrameworkPropertyMetadataOptions.AffectsParentMeasure));
+            "ColumnWidthOverride", typeof (GridLength?), typeof (AutoGrid), 
+            new FrameworkPropertyMetadata(default(GridLength?), FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         public static void SetColumnWidthOverride(DependencyObject element, GridLength? value)
         {
@@ -511,47 +513,55 @@ namespace AutoGrid
         public static readonly DependencyProperty ChildHorizontalAlignmentProperty =
             DependencyProperty.Register("ChildHorizontalAlignment", typeof(HorizontalAlignment?), typeof(AutoGrid),
                 new FrameworkPropertyMetadata((HorizontalAlignment?)null,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure,
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(OnChildHorizontalAlignmentChanged)));
 
         public static readonly DependencyProperty ChildMarginProperty =
             DependencyProperty.Register("ChildMargin", typeof(Thickness?), typeof(AutoGrid),
-                new FrameworkPropertyMetadata((Thickness?)null, FrameworkPropertyMetadataOptions.AffectsMeasure,
+                new FrameworkPropertyMetadata((Thickness?)null, 
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(OnChildMarginChanged)));
 
         public static readonly DependencyProperty ChildVerticalAlignmentProperty =
             DependencyProperty.Register("ChildVerticalAlignment", typeof(VerticalAlignment?), typeof(AutoGrid),
-                new FrameworkPropertyMetadata((VerticalAlignment?)null, FrameworkPropertyMetadataOptions.AffectsMeasure,
+                new FrameworkPropertyMetadata((VerticalAlignment?)null,
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(OnChildVerticalAlignmentChanged)));
 
         public static readonly DependencyProperty ColumnsProperty =
             DependencyProperty.RegisterAttached("Columns", typeof(string), typeof(AutoGrid),
-                new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.AffectsMeasure,
+                new FrameworkPropertyMetadata("", 
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(ColumnsChanged)));
 
         public static readonly DependencyProperty ColumnWidthProperty =
             DependencyProperty.RegisterAttached("ColumnWidth", typeof(GridLength), typeof(AutoGrid),
-                new FrameworkPropertyMetadata(GridLength.Auto, FrameworkPropertyMetadataOptions.AffectsMeasure,
+                new FrameworkPropertyMetadata(GridLength.Auto, 
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(FixedColumnWidthChanged)));
 
         public static readonly DependencyProperty IsAutoIndexingProperty =
             DependencyProperty.Register("IsAutoIndexing", typeof(bool), typeof(AutoGrid),
-                new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsMeasure,
+                new FrameworkPropertyMetadata(true, 
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(OnPropertyChanged)));
 
         public static readonly DependencyProperty OrientationProperty =
             DependencyProperty.Register("Orientation", typeof(Orientation), typeof(AutoGrid),
-                new FrameworkPropertyMetadata(Orientation.Horizontal, FrameworkPropertyMetadataOptions.AffectsMeasure,
+                new FrameworkPropertyMetadata(Orientation.Horizontal, 
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(OnPropertyChanged)));
 
         public static readonly DependencyProperty RowHeightProperty =
             DependencyProperty.RegisterAttached("RowHeight", typeof(GridLength), typeof(AutoGrid),
-                new FrameworkPropertyMetadata(GridLength.Auto, FrameworkPropertyMetadataOptions.AffectsMeasure,
+                new FrameworkPropertyMetadata(GridLength.Auto, 
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(FixedRowHeightChanged)));
 
         public static readonly DependencyProperty RowsProperty =
             DependencyProperty.RegisterAttached("Rows", typeof(string), typeof(AutoGrid),
-                new FrameworkPropertyMetadata("", FrameworkPropertyMetadataOptions.AffectsMeasure,
+                new FrameworkPropertyMetadata("",
+                    FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsArrange,
                     new PropertyChangedCallback(RowsChanged)));
 
         bool _shouldReindex = true;
