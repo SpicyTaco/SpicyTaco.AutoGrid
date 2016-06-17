@@ -1,13 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGrid", "AutoGrid\AutoGrid.csproj", "{60440EDD-CC03-479D-AA9D-7C6E53A57630}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGrid.Tests", "AutoGrid.Tests\AutoGrid.Tests.csproj", "{D3DF2A55-FF73-4BC5-B1F4-2B71B3BC523A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGridSample", "AutoGridSample\AutoGridSample.csproj", "{9E27C0EB-65CA-4C87-AD31-88AB40458BEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{07D3321C-E3EE-4B27-BF94-003596E6269E}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\banner.txt = ..\banner.txt
+		..\Gruntfile.coffee = ..\Gruntfile.coffee
+		..\License.md = ..\License.md
+		..\package.json = ..\package.json
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
