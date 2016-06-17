@@ -11,8 +11,8 @@
     <iconUrl>https://raw.githubusercontent.com/kmcginnes/SpicyTaco.AutoGrid/master/icon/icon_61620.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes></releaseNotes>
-    <copyright>Copyright 2014</copyright>
-    <tags>WPF Grid Control SpicyTaco AutoGrid</tags>
+    <releaseNotes>Added a more feature rich version of the StackPanel.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>WPF Grid Control SpicyTaco AutoGrid ToolKit tool kit StackPanel UI</tags>
   </metadata>
 </package>
