@@ -1,10 +1,22 @@
-SpicyTaco.AutoGrid
+SpicyTaco.WpfToolkit
 ==================
 
-A magical replacement for the built in WPF Grid
+A magical replacement for the built in WPF Grid and StackPanel.
+
+> **NOTE:** I'm in the process of renaming this project from SpicyTaco.AutoGrid to SpicyTaco.WpfToolkit. This is because I plan to add more useful features to this package beyond just AutoGrid.
+
+## Installation
+
+To add SpicyTaco.WpfToolkit to your WPF project, all you have to do is install it from NuGet:
+
+```
+Install-Package SpicyTaco.AutoGrid
+```
 
 Usage Examples
 --------------
+
+**AutoGrid**
 
 In order to get
 
@@ -13,7 +25,7 @@ In order to get
 
 You would typically write XAML that looked like
 
-``` XML
+```xml
 <Grid>
     <Grid.RowDefinitions>
         <RowDefinition Height="Auto" />
@@ -38,7 +50,7 @@ You would typically write XAML that looked like
 
 You can simply write
 
-``` XML
+```xml
 <st:AutoGrid Rows="Auto,Auto,*,28" Columns="Auto,200" Orientation="Vertical">
     <Label Content="Name:"/>
     <Label Content="E-Mail:"/>
@@ -55,7 +67,7 @@ You can simply write
 
 I personally like to put my `Label`s with the element they are labeling. So just remove the `Orientation` which defaults to `Horizontal` and rearrange the elements. You can also pull the common margin up, defining it only once.
 
-``` XML
+```xml
 <st:AutoGrid Rows="Auto,Auto,*,28" Columns="Auto,200" ChildMargin="3">
     <Label Content="Name:"/>
     <TextBox/>
@@ -70,6 +82,20 @@ I personally like to put my `Label`s with the element they are labeling. So just
     <Button HorizontalAlignment="Right" 
             MinWidth="80" Content="Send"  />
 </st:AutoGrid>
+```
+
+**StackPanel**
+
+The built in StackPanel control has always been frustrating to use. When you have a `TextBlock` that has a lot of text, it is impossible to wrap that text without setting an explicit width. Also, a StackPanel does not fill its container. 
+
+Also, I've always wanted a simple container which would apply a margin but only between child elements. This allows me to control the margin of the parent and the spacing between each child separately and cleanly.
+
+```xml
+<st:StackPanel Orientation="Horizontal" MarginBetweenChildren="10" Margin="10">
+    <Button Content="Info" HorizontalAlignment="Left" st:StackPanel.Fill="Fill"/>
+    <Button Content="Cancel"/>
+    <Button Content="Save"/>
+</st:StackPanel>
 ```
 
 Credits
