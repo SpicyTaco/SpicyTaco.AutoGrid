@@ -32,15 +32,14 @@
         </st:AutoGrid>
         <st:AutoGrid ColumnWidth="Auto" ChildMargin="5">
             <TextBlock st:AutoGrid.ColumnWidthOverride="*"/>
-            <Button Content="Save"/>
             <Button Content="Cancel"/>
+            <Button Content="Save"/>
             <Button Content="Info" st:AutoGrid.AutoIndex="False" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
         </st:AutoGrid>
-        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="10" Height="100" Margin="10">
-            <Button Content="Change" VerticalAlignment="Center"/>
-            <TextBlock TextWrapping="Wrap" st:StackPanel.Fill="Fill" Text="Lebowski ipsum you think veer kidding und making mit de funny stuff? Dolor sit amet, consectetur. Are they gonna hurt us, Walter? Adipiscing elit praesent ac magna justo pellentesque ac. I mean his wife goes out and owes money and they pee on my rug. Lectus quis elit blandit fringilla a ut turpis praesent felis ligula, malesuada suscipit malesuada. And so, Theodore Donald Karabotsos, in accordance with what we think your dying wishes might well have been, we commit your mortal remains to the bosom of the Pacific Ocean, which you loved so well. Non, ultrices non urna sed orci ipsum, placerat id condimentum rutrum, rhoncus ac lorem."/>
-            <Button Content="Uninstall" />
-            <Button Content="Update" VerticalAlignment="Top"/>
+        <st:StackPanel Orientation="Horizontal" MarginBetweenChildren="10" Margin="10">
+            <Button Content="Info" HorizontalAlignment="Left" st:StackPanel.Fill="Fill"/>
+            <Button Content="Cancel"/>
+            <Button Content="Save"/>
         </st:StackPanel>
         <TextBlock TextWrapping="Wrap" Text="Lebowski ipsum you think veer kidding und making mit de funny stuff? Dolor sit amet, consectetur. Are they gonna hurt us, Walter? Adipiscing elit praesent ac magna justo pellentesque ac. I mean his wife goes out and owes money and they pee on my rug. Lectus quis elit blandit fringilla a ut turpis praesent felis ligula, malesuada suscipit malesuada. And so, Theodore Donald Karabotsos, in accordance with what we think your dying wishes might well have been, we commit your mortal remains to the bosom of the Pacific Ocean, which you loved so well. Non, ultrices non urna sed orci ipsum, placerat id condimentum rutrum, rhoncus ac lorem."/>
     </st:AutoGrid>
