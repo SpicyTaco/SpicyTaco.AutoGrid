@@ -15,14 +15,15 @@ namespace AutoGrid
             double parentHeight = 0;   // Our current required height due to children thus far.
             double accumulatedWidth = 0;   // Total width consumed by children. 
             double accumulatedHeight = 0;   // Total height consumed by children. 
-            
+
+            var isHorizontal = Orientation == Orientation.Horizontal;
             foreach (var child in children.OfType<UIElement>().Where(x => GetFill(x) == StackPanelFill.Auto))
             {
                 Size childConstraint;             // Contains the suggested input constraint for this child.
                 Size childDesiredSize;            // Contains the return size from child measure. 
 
                 // Child constraint is the remaining size; this is total size minus size consumed by previous children.
-                childConstraint = Orientation == Orientation.Horizontal
+                childConstraint = isHorizontal
                     ? new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
                                Math.Max(accumulatedHeight, constraint.Height))
                     : new Size(Math.Max(accumulatedWidth, constraint.Width),
@@ -32,7 +33,7 @@ namespace AutoGrid
                 child.Measure(childConstraint);
                 childDesiredSize = child.DesiredSize;
                 
-                if (Orientation == Orientation.Horizontal)
+                if (isHorizontal)
                 {
                     accumulatedWidth += childDesiredSize.Width;
                     accumulatedHeight = Math.Max(accumulatedHeight, childDesiredSize.Height);
@@ -44,10 +45,13 @@ namespace AutoGrid
                 }
             }
 
-            var marginMultiplier = Math.Max(children.Count - 1, 0);
+            var visibleChildrenCount = children
+                .OfType<UIElement>()
+                .Count(x => isHorizontal ? x.DesiredSize.Width != 0 : x.DesiredSize.Height != 0);
+            var marginMultiplier = Math.Max(visibleChildrenCount - 1, 0);
             var marginToAdd = MarginBetweenChildren*marginMultiplier;
 
-            if (Orientation == Orientation.Horizontal)
+            if (isHorizontal)
             {
                 accumulatedWidth += marginToAdd;
             }
@@ -62,7 +66,7 @@ namespace AutoGrid
                 Size childDesiredSize;            // Contains the return size from child measure. 
                 
                 // Child constraint is the remaining size; this is total size minus size consumed by previous children.
-                childConstraint = Orientation == Orientation.Horizontal
+                childConstraint = isHorizontal
                     ? new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
                                Math.Max(accumulatedHeight, constraint.Height))
                     : new Size(Math.Max(accumulatedWidth, constraint.Width),
@@ -72,7 +76,7 @@ namespace AutoGrid
                 child.Measure(childConstraint);
                 childDesiredSize = child.DesiredSize;
 
-                if (Orientation == Orientation.Horizontal)
+                if (isHorizontal)
                 {
                     accumulatedWidth += childDesiredSize.Width;
                     accumulatedHeight = Math.Max(accumulatedHeight, childDesiredSize.Height);
@@ -99,9 +103,12 @@ namespace AutoGrid
             double accumulatedLeft = 0;
             double accumulatedTop = 0;
 
-            var marginMultiplier = Math.Max(totalChildrenCount - 1, 0);
-            var totalMarginToAdd = MarginBetweenChildren * marginMultiplier;
             var isHorizontal = Orientation == Orientation.Horizontal;
+            var visibleChildrenCount = children
+                .OfType<UIElement>()
+                .Count(x => isHorizontal ? x.DesiredSize.Width != 0 : x.DesiredSize.Height != 0);
+            var marginMultiplier = Math.Max(visibleChildrenCount - 1, 0);
+            var totalMarginToAdd = MarginBetweenChildren * marginMultiplier;
 
             double allAutoSizedSum = 0.0;
             int countOfFillTypes = 0;
@@ -110,7 +117,8 @@ namespace AutoGrid
                 var fillType = GetFill(child);
                 if (fillType == StackPanelFill.Fill)
                 {
-                    countOfFillTypes += 1;
+                    if (isHorizontal ? child.DesiredSize.Width != 0 : child.DesiredSize.Height != 0)
+                        countOfFillTypes += 1;
                 }
                 else
                 {
@@ -128,11 +136,12 @@ namespace AutoGrid
             {
                 UIElement child = children[i];
                 if (child == null) { continue; }
+                Size childDesiredSize = child.DesiredSize;
+                var isCollapsed = isHorizontal ? childDesiredSize.Width == 0 : childDesiredSize.Height == 0;
                 var isLastChild = i == totalChildrenCount - 1;
-                var marginToAdd = isLastChild ? 0 : MarginBetweenChildren;
+                var marginToAdd = isLastChild || isCollapsed ? 0 : MarginBetweenChildren;
                 var fillType = GetFill(child);
 
-                Size childDesiredSize = child.DesiredSize;
                 Rect rcChild = new Rect(
                     accumulatedLeft,
                     accumulatedTop,
@@ -141,14 +150,14 @@ namespace AutoGrid
                 
                 if (isHorizontal)
                 {
-                    rcChild.Width = fillType == StackPanelFill.Auto ? childDesiredSize.Width : fillTypeSize;
+                    rcChild.Width = fillType == StackPanelFill.Auto || isCollapsed ? childDesiredSize.Width : fillTypeSize;
                     rcChild.Height = arrangeSize.Height;
                     accumulatedLeft += rcChild.Width + marginToAdd;
                 }
                 else
                 {
                     rcChild.Width = arrangeSize.Width;
-                    rcChild.Height = fillType == StackPanelFill.Auto ? childDesiredSize.Height : fillTypeSize;
+                    rcChild.Height = fillType == StackPanelFill.Auto || isCollapsed ? childDesiredSize.Height : fillTypeSize;
                     accumulatedTop += rcChild.Height + marginToAdd;
                 }
 
