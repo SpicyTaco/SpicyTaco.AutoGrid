@@ -20,10 +20,13 @@ namespace AutoGrid
             {
                 Size childConstraint;             // Contains the suggested input constraint for this child.
                 Size childDesiredSize;            // Contains the return size from child measure. 
-                
+
                 // Child constraint is the remaining size; this is total size minus size consumed by previous children.
-                childConstraint = new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
-                                           Math.Max(0.0, constraint.Height - accumulatedHeight));
+                childConstraint = Orientation == Orientation.Horizontal
+                    ? new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
+                               Math.Max(accumulatedHeight, constraint.Height))
+                    : new Size(Math.Max(accumulatedWidth, constraint.Width),
+                               Math.Max(0.0, constraint.Height - accumulatedHeight));
 
                 // Measure child.
                 child.Measure(childConstraint);
@@ -59,8 +62,11 @@ namespace AutoGrid
                 Size childDesiredSize;            // Contains the return size from child measure. 
                 
                 // Child constraint is the remaining size; this is total size minus size consumed by previous children.
-                childConstraint = new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
-                                           Math.Max(0.0, constraint.Height - accumulatedHeight));
+                childConstraint = Orientation == Orientation.Horizontal
+                    ? new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
+                               Math.Max(accumulatedHeight, constraint.Height))
+                    : new Size(Math.Max(accumulatedWidth, constraint.Width),
+                               Math.Max(0.0, constraint.Height - accumulatedHeight));
 
                 // Measure child.
                 child.Measure(childConstraint);
