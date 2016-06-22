@@ -31,7 +31,6 @@ namespace AutoGrid.Tests
                 Width = 100,
                 Height = 100
             };
-            new System.Windows.Controls.StackPanel();
             Subject.Children.Add(uiElement);
         };
 
@@ -73,5 +72,37 @@ namespace AutoGrid.Tests
 
             It should_have_desired_size = () => Subject.DesiredSize.ShouldBeEquivalentTo(new Size(100, 300));
         }
+    }
+
+    class when_weird_scenario : WithSubject<StackPanel>
+    {
+        Establish context = () =>
+        {
+            _innerLeft = new StackPanel();
+            _innerRight = new StackPanel();
+            StackPanel.SetFill(_innerLeft, StackPanelFill.Fill);
+            StackPanel.SetFill(_innerRight, StackPanelFill.Fill);
+            Subject.Children.Add(_innerLeft);
+            Subject.Children.Add(_innerRight);
+            Subject.Orientation = Orientation.Horizontal;
+            //var reallyLongText = Enumerable.Range(0, 150).
+            var uiElement = new Button
+            {
+                Content = "Foo"
+            };
+            var uiElement2 = new Button
+            {
+                Content = "Bar"
+            };
+            _innerLeft.Children.Add(uiElement);
+            _innerRight.Children.Add(uiElement2);
+        };
+
+        Because of = () => Subject.Arrange(new Rect(new Size(800, 19.96)));
+
+        It should_have_1 = () => _innerLeft.ActualWidth.ShouldBeEquivalentTo(400);
+        It should_have_2 = () => _innerRight.ActualWidth.ShouldBeEquivalentTo(400);
+        static StackPanel _innerLeft;
+        static StackPanel _innerRight;
     }
 }

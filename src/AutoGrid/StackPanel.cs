@@ -11,79 +11,95 @@ namespace AutoGrid
         {
             UIElementCollection children = InternalChildren;
 
-            double parentWidth = 0;   // Our current required width due to children thus far. 
-            double parentHeight = 0;   // Our current required height due to children thus far.
-            double accumulatedWidth = 0;   // Total width consumed by children. 
-            double accumulatedHeight = 0;   // Total height consumed by children. 
+            double parentWidth = 0;
+            double parentHeight = 0;
+            double accumulatedWidth = 0;
+            double accumulatedHeight = 0;
 
             var isHorizontal = Orientation == Orientation.Horizontal;
-            foreach (var child in children.OfType<UIElement>().Where(x => GetFill(x) == StackPanelFill.Auto))
+            var totalMarginToAdd = CalculateTotalMarginToAdd(children, isHorizontal, MarginBetweenChildren);
+
+            for (int i = 0; i < children.Count; i++)
             {
-                Size childConstraint;             // Contains the suggested input constraint for this child.
-                Size childDesiredSize;            // Contains the return size from child measure. 
+                UIElement child = children[i];
+
+                if (child == null) { continue; }
+
+                // Handle only the Auto's first to calculate remaining space for Fill's
+                if (GetFill(child) != StackPanelFill.Auto) { continue; }
 
                 // Child constraint is the remaining size; this is total size minus size consumed by previous children.
-                childConstraint = isHorizontal
-                    ? new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
-                               Math.Max(accumulatedHeight, constraint.Height))
-                    : new Size(Math.Max(accumulatedWidth, constraint.Width),
-                               Math.Max(0.0, constraint.Height - accumulatedHeight));
+                var childConstraint = new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
+                                               Math.Max(0.0, constraint.Height - accumulatedHeight));
 
                 // Measure child.
                 child.Measure(childConstraint);
-                childDesiredSize = child.DesiredSize;
-                
+                var childDesiredSize = child.DesiredSize;
+
                 if (isHorizontal)
                 {
                     accumulatedWidth += childDesiredSize.Width;
-                    accumulatedHeight = Math.Max(accumulatedHeight, childDesiredSize.Height);
+                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height);
                 }
                 else
                 {
-                    accumulatedWidth = Math.Max(accumulatedWidth, childDesiredSize.Width);
+                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width);
                     accumulatedHeight += childDesiredSize.Height;
                 }
             }
 
-            var visibleChildrenCount = children
-                .OfType<UIElement>()
-                .Count(x => isHorizontal ? x.DesiredSize.Width != 0 : x.DesiredSize.Height != 0);
-            var marginMultiplier = Math.Max(visibleChildrenCount - 1, 0);
-            var marginToAdd = MarginBetweenChildren*marginMultiplier;
-
+            // Add all margin to accumulated size before calculating remaining space for
+            // Fill elements.
             if (isHorizontal)
             {
-                accumulatedWidth += marginToAdd;
+                accumulatedWidth += totalMarginToAdd;
             }
             else
             {
-                accumulatedHeight += marginToAdd;
+                accumulatedHeight += totalMarginToAdd;
             }
 
-            foreach (var child in children.OfType<UIElement>().Where(x => GetFill(x) == StackPanelFill.Fill))
+            var totalCountOfFillTypes = children
+                .OfType<UIElement>()
+                .Count(x => GetFill(x) == StackPanelFill.Fill
+                         && x.Visibility != Visibility.Collapsed);
+
+            var availableSpaceRemaining = isHorizontal
+                ? Math.Max(0, constraint.Width - accumulatedWidth)
+                : Math.Max(0, constraint.Height - accumulatedHeight);
+
+            var eachFillTypeSize = totalCountOfFillTypes > 0
+                ? availableSpaceRemaining / totalCountOfFillTypes
+                : 0;
+
+            for (int i = 0; i < children.Count; i++)
             {
-                Size childConstraint;             // Contains the suggested input constraint for this child.
-                Size childDesiredSize;            // Contains the return size from child measure. 
-                
+                UIElement child = children[i];
+
+                if (child == null) { continue; }
+
+                // Handle all the Fill's giving them a portion of the remaining space
+                if (GetFill(child) != StackPanelFill.Fill) { continue; }
+
                 // Child constraint is the remaining size; this is total size minus size consumed by previous children.
-                childConstraint = isHorizontal
-                    ? new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
-                               Math.Max(accumulatedHeight, constraint.Height))
-                    : new Size(Math.Max(accumulatedWidth, constraint.Width),
-                               Math.Max(0.0, constraint.Height - accumulatedHeight));
+                var childConstraint = isHorizontal
+                    ? new Size(eachFillTypeSize,
+                               Math.Max(0.0, constraint.Height - accumulatedHeight))
+                    : new Size(Math.Max(0.0, constraint.Width - accumulatedWidth),
+                               eachFillTypeSize);
 
                 // Measure child.
                 child.Measure(childConstraint);
-                childDesiredSize = child.DesiredSize;
+                var childDesiredSize = child.DesiredSize;
 
                 if (isHorizontal)
                 {
                     accumulatedWidth += childDesiredSize.Width;
-                    accumulatedHeight = Math.Max(accumulatedHeight, childDesiredSize.Height);
+                    parentHeight = Math.Max(parentHeight, accumulatedHeight + childDesiredSize.Height);
                 }
                 else
                 {
-                    accumulatedWidth = Math.Max(accumulatedWidth, childDesiredSize.Width);
+                    parentWidth = Math.Max(parentWidth, accumulatedWidth + childDesiredSize.Width);
                     accumulatedHeight += childDesiredSize.Height;
                 }
             }
@@ -91,24 +107,23 @@ namespace AutoGrid
             // Make sure the final accumulated size is reflected in parentSize. 
             parentWidth = Math.Max(parentWidth, accumulatedWidth);
             parentHeight = Math.Max(parentHeight, accumulatedHeight);
+            var parent = new Size(parentWidth, parentHeight);
 
-            return new Size(parentWidth, parentHeight);
+            return parent;
         }
 
         protected override Size ArrangeOverride(Size arrangeSize)
         {
             UIElementCollection children = InternalChildren;
             int totalChildrenCount = children.Count;
-            
+
             double accumulatedLeft = 0;
             double accumulatedTop = 0;
 
             var isHorizontal = Orientation == Orientation.Horizontal;
-            var visibleChildrenCount = children
-                .OfType<UIElement>()
-                .Count(x => isHorizontal ? x.DesiredSize.Width != 0 : x.DesiredSize.Height != 0);
-            var marginMultiplier = Math.Max(visibleChildrenCount - 1, 0);
-            var totalMarginToAdd = MarginBetweenChildren * marginMultiplier;
+            var marginBetweenChildren = MarginBetweenChildren;
+
+            var totalMarginToAdd = CalculateTotalMarginToAdd(children, isHorizontal, marginBetweenChildren);
 
             double allAutoSizedSum = 0.0;
             int countOfFillTypes = 0;
@@ -117,7 +132,7 @@ namespace AutoGrid
                 var fillType = GetFill(child);
                 if (fillType == StackPanelFill.Fill)
                 {
-                    if (isHorizontal ? child.DesiredSize.Width != 0 : child.DesiredSize.Height != 0)
+                    if (child.Visibility != Visibility.Collapsed)
                         countOfFillTypes += 1;
                 }
                 else
@@ -137,9 +152,9 @@ namespace AutoGrid
                 UIElement child = children[i];
                 if (child == null) { continue; }
                 Size childDesiredSize = child.DesiredSize;
-                var isCollapsed = isHorizontal ? childDesiredSize.Width == 0 : childDesiredSize.Height == 0;
+                var isCollapsed = child.Visibility == Visibility.Collapsed;
                 var isLastChild = i == totalChildrenCount - 1;
-                var marginToAdd = isLastChild || isCollapsed ? 0 : MarginBetweenChildren;
+                var marginToAdd = isLastChild || isCollapsed ? 0 : marginBetweenChildren;
                 var fillType = GetFill(child);
 
                 Rect rcChild = new Rect(
@@ -147,7 +162,7 @@ namespace AutoGrid
                     accumulatedTop,
                     Math.Max(0.0, arrangeSize.Width - accumulatedLeft),
                     Math.Max(0.0, arrangeSize.Height - accumulatedTop));
-                
+
                 if (isHorizontal)
                 {
                     rcChild.Width = fillType == StackPanelFill.Auto || isCollapsed ? childDesiredSize.Width : fillTypeSize;
@@ -167,37 +182,47 @@ namespace AutoGrid
             return arrangeSize;
         }
 
+        static double CalculateTotalMarginToAdd(UIElementCollection children, bool isHorizontal, double marginBetweenChildren)
+        {
+            var visibleChildrenCount = children
+                .OfType<UIElement>()
+                .Count(x => x.Visibility != Visibility.Collapsed);
+            var marginMultiplier = Math.Max(visibleChildrenCount - 1, 0);
+            var totalMarginToAdd = marginBetweenChildren * marginMultiplier;
+            return totalMarginToAdd;
+        }
+
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register(
-            "Orientation", typeof(Orientation), typeof(StackPanel), 
+            "Orientation", typeof(Orientation), typeof(StackPanel),
             new FrameworkPropertyMetadata(
-                Orientation.Vertical, 
-                FrameworkPropertyMetadataOptions.AffectsArrange | 
+                Orientation.Vertical,
+                FrameworkPropertyMetadataOptions.AffectsArrange |
                 FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         public Orientation Orientation
         {
-            get { return (Orientation) GetValue(OrientationProperty); }
+            get { return (Orientation)GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
 
         public static readonly DependencyProperty MarginBetweenChildrenProperty = DependencyProperty.Register(
             "MarginBetweenChildren", typeof(double), typeof(StackPanel),
             new FrameworkPropertyMetadata(
-                0.0, 
-                FrameworkPropertyMetadataOptions.AffectsArrange | 
+                0.0,
+                FrameworkPropertyMetadataOptions.AffectsArrange |
                 FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         public double MarginBetweenChildren
         {
-            get { return (double) GetValue(MarginBetweenChildrenProperty); }
+            get { return (double)GetValue(MarginBetweenChildrenProperty); }
             set { SetValue(MarginBetweenChildrenProperty, value); }
         }
 
         public static readonly DependencyProperty FillProperty = DependencyProperty.RegisterAttached(
-            "Fill", typeof(StackPanelFill), typeof(StackPanel), 
+            "Fill", typeof(StackPanelFill), typeof(StackPanel),
             new FrameworkPropertyMetadata(
-                StackPanelFill.Auto, 
-                FrameworkPropertyMetadataOptions.AffectsArrange | 
+                StackPanelFill.Auto,
+                FrameworkPropertyMetadataOptions.AffectsArrange |
                 FrameworkPropertyMetadataOptions.AffectsMeasure |
                 FrameworkPropertyMetadataOptions.AffectsParentArrange |
                 FrameworkPropertyMetadataOptions.AffectsParentMeasure));
@@ -209,7 +234,7 @@ namespace AutoGrid
 
         public static StackPanelFill GetFill(DependencyObject element)
         {
-            return (StackPanelFill) element.GetValue(FillProperty);
+            return (StackPanelFill)element.GetValue(FillProperty);
         }
     }
 
