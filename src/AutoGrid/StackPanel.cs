@@ -17,7 +17,7 @@ namespace AutoGrid
             double accumulatedHeight = 0;
 
             var isHorizontal = Orientation == Orientation.Horizontal;
-            var totalMarginToAdd = CalculateTotalMarginToAdd(children, isHorizontal, MarginBetweenChildren);
+            var totalMarginToAdd = CalculateTotalMarginToAdd(children, MarginBetweenChildren);
 
             for (int i = 0; i < children.Count; i++)
             {
@@ -123,16 +123,16 @@ namespace AutoGrid
             var isHorizontal = Orientation == Orientation.Horizontal;
             var marginBetweenChildren = MarginBetweenChildren;
 
-            var totalMarginToAdd = CalculateTotalMarginToAdd(children, isHorizontal, marginBetweenChildren);
+            var totalMarginToAdd = CalculateTotalMarginToAdd(children, marginBetweenChildren);
 
             double allAutoSizedSum = 0.0;
             int countOfFillTypes = 0;
             foreach (var child in children.OfType<UIElement>())
             {
                 var fillType = GetFill(child);
-                if (fillType == StackPanelFill.Fill)
+                if (fillType != StackPanelFill.Auto)
                 {
-                    if (child.Visibility != Visibility.Collapsed)
+                    if (child.Visibility != Visibility.Collapsed && fillType != StackPanelFill.Ignored)
                         countOfFillTypes += 1;
                 }
                 else
@@ -152,10 +152,10 @@ namespace AutoGrid
                 UIElement child = children[i];
                 if (child == null) { continue; }
                 Size childDesiredSize = child.DesiredSize;
-                var isCollapsed = child.Visibility == Visibility.Collapsed;
+                var fillType = GetFill(child);
+                var isCollapsed = child.Visibility == Visibility.Collapsed || fillType == StackPanelFill.Ignored;
                 var isLastChild = i == totalChildrenCount - 1;
                 var marginToAdd = isLastChild || isCollapsed ? 0 : marginBetweenChildren;
-                var fillType = GetFill(child);
 
                 Rect rcChild = new Rect(
                     accumulatedLeft,
@@ -182,11 +182,11 @@ namespace AutoGrid
             return arrangeSize;
         }
 
-        static double CalculateTotalMarginToAdd(UIElementCollection children, bool isHorizontal, double marginBetweenChildren)
+        static double CalculateTotalMarginToAdd(UIElementCollection children, double marginBetweenChildren)
         {
             var visibleChildrenCount = children
                 .OfType<UIElement>()
-                .Count(x => x.Visibility != Visibility.Collapsed);
+                .Count(x => x.Visibility != Visibility.Collapsed && GetFill(x) != StackPanelFill.Ignored);
             var marginMultiplier = Math.Max(visibleChildrenCount - 1, 0);
             var totalMarginToAdd = marginBetweenChildren * marginMultiplier;
             return totalMarginToAdd;
@@ -240,6 +240,6 @@ namespace AutoGrid
 
     public enum StackPanelFill
     {
-        Auto, Fill
+        Auto, Fill, Ignored
     }
 }
