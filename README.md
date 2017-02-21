@@ -23,7 +23,7 @@ In order to get
 ![Form Image](v2_gridlayout.png)<br/>
 [Sourced from the awesome WpfTutorials](http://wpftutorial.net/GridLayout.html)
 
-You would typically write XAML that looked like
+You would typically write XAML that looked like:
 
 ```xml
 <Grid>
