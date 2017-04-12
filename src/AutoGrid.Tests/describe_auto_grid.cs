@@ -2,152 +2,160 @@
 using System.Windows;
 using System.Windows.Controls;
 using FluentAssertions;
-using Machine.Fakes;
-using Machine.Specifications;
+using Xunit;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Local
 namespace AutoGrid.Tests
 {
-    public class when_parsing_doubles : WithSubject<AutoGrid>
+    public class ParseShould
     {
-        Because of = () => _result = AutoGrid.Parse("3,3,3,3");
-
-        It should_be_all_threes = () =>
-            _result.ToList().ForEach(x =>
+        [Fact]
+        public void HaveGridLengthOfThreeWhenParsingNumbers()
+        {
+            var result = AutoGrid.Parse("3,3,3,3");
+            result.ToList().ForEach(x =>
                 x.Should().Be(new GridLength(3)));
+        }
 
-        static GridLength[] _result;
-    }
-    public class when_parsing_stars : WithSubject<AutoGrid>
-    {
-        Because of = () => _result = AutoGrid.Parse("*,*,*,*");
-
-        It should_be_all_threes = () =>
-            _result.ToList().ForEach(x =>
+        [Fact]
+        public void HaveGridLengthOfThreeWhenParsingStars()
+        {
+            var result = AutoGrid.Parse("*,*,*,*");
+            result.ToList().ForEach(x =>
                 x.Should().Be(new GridLength(1, GridUnitType.Star)));
-
-        static GridLength[] _result;
+        }
     }
 
-    public class when_row_and_column_count_set : WithSubject<AutoGrid>
+    public class AutoGridWithTwoStarColumnsShould
     {
-        Establish context = () =>
+        public AutoGridWithTwoStarColumnsShould()
         {
-            Subject.Children.Add(new Button());
-            Subject.Children.Add(new Button());
-            Subject.Columns = "*,*";
-            Subject.PerformLayout();
-        };
+            _sut = new AutoGrid();
+            _sut.Children.Add(new Button());
+            _sut.Children.Add(new Button());
+            _sut.Columns = "*,*";
+            _sut.PerformLayout();
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void HaveOneRow() => _sut.RowDefinitions.Count.Should().Be(1);
+        [Fact] public void HaveTwoColumns() => _sut.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void MakeFirstChildRowIndexZero() => Grid.GetRow(_sut.Children[0]).Should().Be(0);
+        [Fact] public void MakeFirstChildColumnIndexZero() => Grid.GetColumn(_sut.Children[0]).Should().Be(0);
 
-        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void MakeSecondChildRowIndexZero() => Grid.GetRow(_sut.Children[1]).Should().Be(0);
+        [Fact] public void MakeSecondChildColumnIndexOne() => Grid.GetColumn(_sut.Children[1]).Should().Be(1);
+        private readonly AutoGrid _sut;
     }
 
-    public class when_row_and_column_count_set_and_orientation_vertical : WithSubject<AutoGrid>
+    public class AutoGridWithStarAndAutoColumnsAndVerticalOrientationShould
     {
-        Establish context = () =>
+        public AutoGridWithStarAndAutoColumnsAndVerticalOrientationShould()
         {
-            Subject.Children.Add(new Button());
-            Subject.Children.Add(new Button());
-            Subject.Orientation = Orientation.Vertical;
-            Subject.Columns = "*,Auto";
-            Subject.PerformLayout();
-        };
+            _sut = new AutoGrid();
+            _sut.Children.Add(new Button());
+            _sut.Children.Add(new Button());
+            _sut.Orientation = Orientation.Vertical;
+            _sut.Columns = "*,Auto";
+            _sut.PerformLayout();
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void HaveOneRow() => _sut.RowDefinitions.Count.Should().Be(1);
+        [Fact] public void HaveTwoColumns() => _sut.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void MakeFirstChildRowIndexZero() => Grid.GetRow(_sut.Children[0]).Should().Be(0);
+        [Fact] public void MakeFirstChildColumnIndexZero() => Grid.GetColumn(_sut.Children[0]).Should().Be(0);
 
-        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void MakeSecondChildRowIndexZero() => Grid.GetRow(_sut.Children[1]).Should().Be(0);
+        [Fact] public void MakeSecondChildColumnIndexOne() => Grid.GetColumn(_sut.Children[1]).Should().Be(1);
+        private readonly AutoGrid _sut;
     }
 
-    public class when_rows_are_defined_and_orientation_is_vertical : WithSubject<AutoGrid>
+    public class AutoGridWithStarColumnsAndVerticalOrientationShould
     {
-        Establish context = () =>
+        public AutoGridWithStarColumnsAndVerticalOrientationShould()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             Subject.Orientation = Orientation.Vertical;
             Subject.Rows = "*,*";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(2);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(1);
 
-        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).Should().Be(1);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(0);
+        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(0);
+        private AutoGrid Subject;
     }
 
-    public class when_row_and_column_definitions_are_set : WithSubject<AutoGrid>
+    public class AutoGridWithRowAndColumnDefinitionsShould
     {
-        Establish context = () =>
+        public AutoGridWithRowAndColumnDefinitionsShould()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             Subject.Rows = "10";
             Subject.Columns = "100,*";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        private AutoGrid Subject;
     }
 
-    public class when_mixed_row_count_and_column_definition_are_set : WithSubject<AutoGrid>
+    public class when_mixed_row_count_and_column_definition_are_set
     {
-        Establish context = () =>
+        public when_mixed_row_count_and_column_definition_are_set()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             Subject.Columns = "100,*";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        private AutoGrid Subject;
     }
 
-    public class when_mixed_row_definition_and_column_count_are_set : WithSubject<AutoGrid>
+    public class when_mixed_row_definition_and_column_count_are_set
     {
-        Establish context = () =>
+        public when_mixed_row_definition_and_column_count_are_set()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             Subject.Rows = "10";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        private AutoGrid Subject;
     }
 
-    public class when_setting_one_row_height_and_adding_many_elements : WithSubject<AutoGrid>
+    public class when_setting_one_row_height_and_adding_many_elements
     {
-        Establish context = () =>
+        public when_setting_one_row_height_and_adding_many_elements()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
@@ -156,34 +164,36 @@ namespace AutoGrid.Tests
             Subject.Children.Add(new Button());
             Subject.Columns = "100,*";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(3);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        It should_make_third_child_row_index_one = () => Grid.GetRow(Subject.Children[2]).Should().Be(1);
-        It should_make_third_child_column_index_zero = () => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        [Fact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
+        [Fact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
 
-        It should_make_forth_child_row_index_one = () => Grid.GetRow(Subject.Children[3]).Should().Be(1);
-        It should_make_forth_child_column_index_one = () => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
+        [Fact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
+        [Fact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
 
-        It should_make_fifth_child_row_index_two = () => Grid.GetRow(Subject.Children[4]).Should().Be(2);
-        It should_make_fifth_child_column_index_zero = () => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
+        [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
 
-        It should_make_sixth_child_row_index_two = () => Grid.GetRow(Subject.Children[5]).Should().Be(2);
-        It should_make_sixth_child_column_index_one = () => Grid.GetColumn(Subject.Children[5]).Should().Be(1);
+        [Fact] public void should_make_sixth_child_row_index_two() => Grid.GetRow(Subject.Children[5]).Should().Be(2);
+        [Fact] public void should_make_sixth_child_column_index_one() => Grid.GetColumn(Subject.Children[5]).Should().Be(1);
+        private AutoGrid Subject;
     }
 
-    public class when_rows_are_defined_and_adding_many_elements : WithSubject<AutoGrid>
+    public class when_rows_are_defined_and_adding_many_elements
     {
-        Establish context = () =>
+        public when_rows_are_defined_and_adding_many_elements()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
@@ -192,34 +202,36 @@ namespace AutoGrid.Tests
             Subject.Children.Add(new Button());
             Subject.Rows = "100,*";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(2);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(3);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
 
-        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        It should_make_third_child_row_index_one = () => Grid.GetRow(Subject.Children[2]).Should().Be(0);
-        It should_make_third_child_column_index_zero = () => Grid.GetColumn(Subject.Children[2]).Should().Be(2);
+        [Fact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(0);
+        [Fact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(2);
 
-        It should_make_forth_child_row_index_one = () => Grid.GetRow(Subject.Children[3]).Should().Be(1);
-        It should_make_forth_child_column_index_one = () => Grid.GetColumn(Subject.Children[3]).Should().Be(0);
+        [Fact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
+        [Fact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(0);
 
-        It should_make_fifth_child_row_index_two = () => Grid.GetRow(Subject.Children[4]).Should().Be(1);
-        It should_make_fifth_child_column_index_zero = () => Grid.GetColumn(Subject.Children[4]).Should().Be(1);
+        [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(1);
+        [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(1);
 
-        It should_make_sixth_child_row_index_two = () => Grid.GetRow(Subject.Children[5]).Should().Be(1);
-        It should_make_sixth_child_column_index_one = () => Grid.GetColumn(Subject.Children[5]).Should().Be(2);
+        [Fact] public void should_make_sixth_child_row_index_two() => Grid.GetRow(Subject.Children[5]).Should().Be(1);
+        [Fact] public void should_make_sixth_child_column_index_one() => Grid.GetColumn(Subject.Children[5]).Should().Be(2);
+        private AutoGrid Subject;
     }
 
-    public class when_rows_are_defined_with_column_span_and_adding_many_elements : WithSubject<AutoGrid>
+    public class when_rows_are_defined_with_column_span_and_adding_many_elements
     {
-        Establish context = () =>
+        public when_rows_are_defined_with_column_span_and_adding_many_elements()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
@@ -229,31 +241,33 @@ namespace AutoGrid.Tests
             Subject.Children.Add(spannedElement);
             Subject.Columns = "100,*";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(3);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        It should_make_third_child_row_index_one = () => Grid.GetRow(Subject.Children[2]).Should().Be(1);
-        It should_make_third_child_column_index_zero = () => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        [Fact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
+        [Fact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
 
-        It should_make_forth_child_row_index_one = () => Grid.GetRow(Subject.Children[3]).Should().Be(1);
-        It should_make_forth_child_column_index_one = () => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
+        [Fact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
+        [Fact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
 
-        It should_make_fifth_child_row_index_two = () => Grid.GetRow(Subject.Children[4]).Should().Be(2);
-        It should_make_fifth_child_column_index_zero = () => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
+        [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        private AutoGrid Subject;
     }
 
-    public class when_rows_are_defined_and_adding_many_elements_with_one_missing : WithSubject<AutoGrid>
+    public class when_rows_are_defined_and_adding_many_elements_with_one_missing
     {
-        Establish context = () =>
+        public when_rows_are_defined_and_adding_many_elements_with_one_missing()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
@@ -261,31 +275,33 @@ namespace AutoGrid.Tests
             Subject.Children.Add(new Button());
             Subject.Columns = "100,*";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(3);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        It should_make_third_child_row_index_one = () => Grid.GetRow(Subject.Children[2]).Should().Be(1);
-        It should_make_third_child_column_index_zero = () => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        [Fact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
+        [Fact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
 
-        It should_make_forth_child_row_index_one = () => Grid.GetRow(Subject.Children[3]).Should().Be(1);
-        It should_make_forth_child_column_index_one = () => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
+        [Fact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
+        [Fact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
 
-        It should_make_fifth_child_row_index_two = () => Grid.GetRow(Subject.Children[4]).Should().Be(2);
-        It should_make_fifth_child_column_index_zero = () => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
+        [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        private AutoGrid Subject;
     }
 
-    public class when_adding_additional_elements_outside_auto_assignment : WithSubject<AutoGrid>
+    public class when_adding_additional_elements_outside_auto_assignment
     {
-        Establish context = () =>
+        public when_adding_additional_elements_outside_auto_assignment()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             var additionalElement = new TextBlock();
@@ -296,25 +312,27 @@ namespace AutoGrid.Tests
             Subject.Children.Add(additionalElement);
             Subject.Columns = "100,100";
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
-        It should_have_two_columns = () => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        It should_make_first_child_row_index_zero = () => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        It should_make_first_child_column_index_zero = () => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        It should_make_second_child_row_index_zero = () => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        It should_make_second_child_column_index_one = () => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        It should_not_change_third_child_row_index = () => Grid.GetRow(Subject.Children[2]).Should().Be(0);
-        It should_not_change_third_child_column_index = () => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        [Fact] public void should_not_change_third_child_row_index() => Grid.GetRow(Subject.Children[2]).Should().Be(0);
+        [Fact] public void should_not_change_third_child_column_index() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        private AutoGrid Subject;
     }
 
-    public class when_overriding_row_height : WithSubject<AutoGrid>
+    public class when_overriding_row_height
     {
-        Establish context = () =>
+        public when_overriding_row_height()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             var additionalElement = new TextBlock();
@@ -323,20 +341,22 @@ namespace AutoGrid.Tests
             Subject.Columns = "*";
             Subject.RowHeight = GridLength.Auto;
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_three_rows = () => Subject.RowDefinitions.Count.Should().Be(3);
-        It should_have_one_column = () => Subject.ColumnDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_three_rows() => Subject.RowDefinitions.Count.Should().Be(3);
+        [Fact] public void should_have_one_column() => Subject.ColumnDefinitions.Count.Should().Be(1);
 
-        It should_make_first_child_row_height_auto = () => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
-        It should_make_second_child_row_height_auto = () => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
-        It should_make_third_child_row_height_star = () => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
+        [Fact] public void should_make_first_child_row_height_auto() => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
+        [Fact] public void should_make_second_child_row_height_auto() => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
+        [Fact] public void should_make_third_child_row_height_star() => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
+        private AutoGrid Subject;
     }
 
-    public class when_overriding_column_width : WithSubject<AutoGrid>
+    public class when_overriding_column_width
     {
-        Establish context = () =>
+        public when_overriding_column_width()
         {
+            Subject = new AutoGrid();
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
             var additionalElement = new TextBlock();
@@ -345,20 +365,22 @@ namespace AutoGrid.Tests
             Subject.Rows = "*";
             Subject.ColumnWidth = GridLength.Auto;
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
-        It should_have_three_columns = () => Subject.ColumnDefinitions.Count.Should().Be(3);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_three_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
 
-        It should_make_first_child_column_width_auto = () => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
-        It should_make_second_child_column_width_auto = () => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
-        It should_make_third_child_column_width_star = () => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
+        [Fact] public void should_make_first_child_column_width_auto() => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
+        [Fact] public void should_make_second_child_column_width_auto() => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
+        [Fact] public void should_make_third_child_column_width_star() => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
+        private AutoGrid Subject;
     }
 
-    public class when_overriding_row_height_and_vertical : WithSubject<AutoGrid>
+    public class when_overriding_row_height_and_vertical
     {
-        Establish context = () =>
+        public when_overriding_row_height_and_vertical()
         {
+            Subject = new AutoGrid();
             Subject.Orientation = Orientation.Vertical;
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
@@ -368,20 +390,22 @@ namespace AutoGrid.Tests
             Subject.Columns = "*";
             Subject.RowHeight = GridLength.Auto;
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_three_rows = () => Subject.RowDefinitions.Count.Should().Be(3);
-        It should_have_one_column = () => Subject.ColumnDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_three_rows() => Subject.RowDefinitions.Count.Should().Be(3);
+        [Fact] public void should_have_one_column() => Subject.ColumnDefinitions.Count.Should().Be(1);
 
-        It should_make_first_child_row_height_auto = () => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
-        It should_make_second_child_row_height_auto = () => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
-        It should_make_third_child_row_height_star = () => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
+        [Fact] public void should_make_first_child_row_height_auto() => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
+        [Fact] public void should_make_second_child_row_height_auto() => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
+        [Fact] public void should_make_third_child_row_height_star() => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
+        private AutoGrid Subject;
     }
 
-    public class when_overriding_column_width_and_vertical : WithSubject<AutoGrid>
+    public class when_overriding_column_width_and_vertical
     {
-        Establish context = () =>
+        public when_overriding_column_width_and_vertical()
         {
+            Subject = new AutoGrid();
             Subject.Orientation = Orientation.Vertical;
             Subject.Children.Add(new Button());
             Subject.Children.Add(new Button());
@@ -391,13 +415,14 @@ namespace AutoGrid.Tests
             Subject.Rows = "*";
             Subject.ColumnWidth = GridLength.Auto;
             Subject.PerformLayout();
-        };
+        }
 
-        It should_have_one_row = () => Subject.RowDefinitions.Count.Should().Be(1);
-        It should_have_three_columns = () => Subject.ColumnDefinitions.Count.Should().Be(3);
+        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [Fact] public void should_have_three_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
 
-        It should_make_first_child_column_width_auto = () => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
-        It should_make_second_child_column_width_auto = () => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
-        It should_make_third_child_column_width_star = () => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
+        [Fact] public void should_make_first_child_column_width_auto() => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
+        [Fact] public void should_make_second_child_column_width_auto() => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
+        [Fact] public void should_make_third_child_column_width_star() => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
+        private AutoGrid Subject;
     }
 }
