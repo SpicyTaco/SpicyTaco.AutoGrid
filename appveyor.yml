@@ -1,0 +1,28 @@
+version: 1.1.{build}
+pull_requests:
+  do_not_increment_build_number: true
+skip_tags: true
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+- cmd: nuget restore src\AutoGrid.sln
+build:
+  publish_nuget: true
+  publish_nuget_symbols: true
+  verbosity: minimal
+deploy:
+- provider: NuGet
+  api_key:
+    secure: IpcSAUSn64Sic4dpg3QrbS+9zt5fN4SlFxs8SuZytQBCNhzHlEyeiBV9Chp3gj3I
+  on:
+    branch: master
+- provider: GitHub
+  tag: v$(appveyor_build_version)
+  auth_token:
+    secure: EuFsrLWBjFwHWvjJc41uWCOWA5+h0OzZuUrnMgqyOnYvQ6omg6UiDGTQQwWnm5pk
+  on:
+    branch: master
