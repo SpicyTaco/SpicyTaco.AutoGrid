@@ -1,91 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using FluentAssertions;
-using Machine.Fakes;
-using Machine.Specifications;
+using Xunit;
+using Xunit.Extensions;
 
-// ReSharper disable InconsistentNaming
-// ReSharper disable UnusedMember.Local
 namespace AutoGrid.Tests
 {
-    class when_no_children_size_should_be_zero : WithSubject<StackPanel>
+    public class StackPanelMeasureShould
     {
-        Establish context = () =>
+        [Fact]
+        public void HaveDesiredSizeOfZeroWhenNoChildren()
         {
-            Subject.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-        };
+            var subject = new StackPanel();
+            subject.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+            subject.DesiredSize.ShouldBeEquivalentTo(new Size());
+        }
 
-        It should_have_desired_size_of_zero = () => Subject.DesiredSize.ShouldBeEquivalentTo(new Size());
-    }
-
-    class when_one_child_size_should_be_child_size : WithSubject<StackPanel>
-    {
-        Establish context = () =>
+        [Fact]
+        public void HaveDesiredSizeOfOneHundredWithChild()
         {
+            var subject = new StackPanel();
             var uiElement = new Button
             {
                 Width = 100,
                 Height = 100
             };
-            Subject.Children.Add(uiElement);
-        };
-
-        Because of = () => Subject.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-
-        It should_have_desired_size_of_zero = () => Subject.DesiredSize.ShouldBeEquivalentTo(new Size(100, 100));
-    }
-
-    class when_many_children : WithSubject<StackPanel>
-    {
-        Establish context = () =>
-        {
-            var uiElements = Enumerable.Range(0, 3)
-                .Select(x => new Button { Width = 100, Height = 100 });
-            foreach (var uiElement in uiElements)
-            {
-                Subject.Children.Add(uiElement);
-            }
-        };
-
-        Because of = () => Subject.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
-
-        class as_horizontal
-        {
-            Establish context = () =>
-            {
-                Subject.Orientation = Orientation.Horizontal;
-            };
-
-            It should_have_desired_size = () => Subject.DesiredSize.ShouldBeEquivalentTo(new Size(300, 100));
+            subject.Children.Add(uiElement);
+            subject.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+            subject.DesiredSize.ShouldBeEquivalentTo(new Size(100, 100));
         }
 
-        class as_vertical
+        [Theory]
+        [InlineData(1, Orientation.Vertical, 100, 100)]
+        [InlineData(3, Orientation.Vertical, 100, 300)]
+        [InlineData(3, Orientation.Horizontal, 300, 100)]
+        public void HaveDesiredSizeOfWithManyChildren(
+            int numOfChildren, Orientation orientation, int expectedWidth, int expectedHeight)
         {
-            Establish context = () =>
-            {
-                Subject.Orientation = Orientation.Vertical;
-            };
-
-            It should_have_desired_size = () => Subject.DesiredSize.ShouldBeEquivalentTo(new Size(100, 300));
+            var subject = new StackPanel {Orientation = orientation};
+            Enumerable.Range(0, numOfChildren)
+                .Select(x => new Button { Width = 100, Height = 100 })
+                .ToList()
+                .ForEach(x => subject.Children.Add(x));
+            subject.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
+            subject.DesiredSize.ShouldBeEquivalentTo(new Size(expectedWidth, expectedHeight));
         }
-    }
 
-    class when_weird_scenario : WithSubject<StackPanel>
-    {
-        Establish context = () =>
+        [Fact]
+        public void SplitSpaceWhenTwoFills()
         {
-            _innerLeft = new StackPanel();
-            _innerRight = new StackPanel();
-            StackPanel.SetFill(_innerLeft, StackPanelFill.Fill);
-            StackPanel.SetFill(_innerRight, StackPanelFill.Fill);
-            Subject.Children.Add(_innerLeft);
-            Subject.Children.Add(_innerRight);
-            Subject.Orientation = Orientation.Horizontal;
-            //var reallyLongText = Enumerable.Range(0, 150).
+            var subject = new StackPanel();
+            var innerLeft = new StackPanel();
+            var innerRight = new StackPanel();
+            StackPanel.SetFill(innerLeft, StackPanelFill.Fill);
+            StackPanel.SetFill(innerRight, StackPanelFill.Fill);
+            subject.Children.Add(innerLeft);
+            subject.Children.Add(innerRight);
+            subject.Orientation = Orientation.Horizontal;
             var uiElement = new Button
             {
                 Content = "Foo"
@@ -94,15 +67,13 @@ namespace AutoGrid.Tests
             {
                 Content = "Bar"
             };
-            _innerLeft.Children.Add(uiElement);
-            _innerRight.Children.Add(uiElement2);
-        };
+            innerLeft.Children.Add(uiElement);
+            innerRight.Children.Add(uiElement2);
 
-        Because of = () => Subject.Arrange(new Rect(new Size(800, 19.96)));
+            subject.Arrange(new Rect(new Size(800, 19.96)));
 
-        It should_have_1 = () => _innerLeft.ActualWidth.ShouldBeEquivalentTo(400);
-        It should_have_2 = () => _innerRight.ActualWidth.ShouldBeEquivalentTo(400);
-        static StackPanel _innerLeft;
-        static StackPanel _innerRight;
+            innerLeft.ActualWidth.ShouldBeEquivalentTo(400);
+            innerRight.ActualWidth.ShouldBeEquivalentTo(400);
+        }
     }
 }
