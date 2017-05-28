@@ -6,7 +6,7 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/kmcginnes/SpicyTaco.AutoGrid/blob/master/License.md</licenseUrl>
+    <licenseUrl>https://github.com/kmcginnes/SpicyTaco.AutoGrid/blob/master/license</licenseUrl>
     <projectUrl>https://github.com/kmcginnes/SpicyTaco.AutoGrid</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/kmcginnes/SpicyTaco.AutoGrid/master/icon/icon_61620.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
