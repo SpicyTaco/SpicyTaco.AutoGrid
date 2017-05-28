@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -443,23 +444,37 @@ namespace AutoGrid
 
                 //  Update children indices
                 int cellPosition = 0;
+                var cellsToSkip = new Queue<int>();
                 foreach (UIElement child in Children)
                 {
                     if (IsAutoIndexing && GetAutoIndex(child) == true)
                     {
-                        if (!isVertical)
+                        if (cellsToSkip.Any() && cellsToSkip.Peek() == cellPosition)
+                        {
+                            cellsToSkip.Dequeue();
+                            cellPosition += 1;
+                        }
+
+                        if (!isVertical) // horizontal (default)
                         {
                             var rowIndex = cellPosition / ColumnDefinitions.Count;
                             Grid.SetRow(child, rowIndex);
 
+                            var columnIndex = cellPosition % ColumnDefinitions.Count;
+                            Grid.SetColumn(child, columnIndex);
+
+                            var rowSpan = Grid.GetRowSpan(child);
+                            if(rowSpan > 1)
+                            {
+                                Enumerable.Range(1, rowSpan).ToList()
+                                    .ForEach(x => cellsToSkip.Enqueue(cellPosition + ColumnDefinitions.Count * x));
+                            }
+                            
                             var overrideRowHeight = AutoGrid.GetRowHeightOverride(child);
                             if (overrideRowHeight != null)
                             {
                                 RowDefinitions[rowIndex].Height = overrideRowHeight.Value;
                             }
-
-                            var columnIndex = cellPosition % ColumnDefinitions.Count;
-                            Grid.SetColumn(child, columnIndex);
                             
                             var overrideColumnWidth = AutoGrid.GetColumnWidthOverride(child);
                             if (overrideColumnWidth != null)
@@ -474,14 +489,21 @@ namespace AutoGrid
                             var rowIndex = cellPosition % RowDefinitions.Count;
                             Grid.SetRow(child, rowIndex);
 
+                            var columnIndex = cellPosition / RowDefinitions.Count;
+                            Grid.SetColumn(child, columnIndex);
+
+                            var columnSpan = Grid.GetColumnSpan(child);
+                            if(columnSpan > 1)
+                            {
+                                Enumerable.Range(1, columnSpan).ToList()
+                                    .ForEach(x => cellsToSkip.Enqueue(cellPosition + RowDefinitions.Count * x));
+                            }
+
                             var overrideRowHeight = AutoGrid.GetRowHeightOverride(child);
                             if (overrideRowHeight != null)
                             {
                                 RowDefinitions[rowIndex].Height = overrideRowHeight.Value;
                             }
-
-                            var columnIndex = cellPosition / RowDefinitions.Count;
-                            Grid.SetColumn(child, columnIndex);
 
                             var overrideColumnWidth = AutoGrid.GetColumnWidthOverride(child);
                             if (overrideColumnWidth != null)

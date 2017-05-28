@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using FluentAssertions;
+using FluentAssertions.Collections;
 using Xunit;
 
 namespace AutoGrid.Tests
@@ -260,6 +262,67 @@ namespace AutoGrid.Tests
 
         [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
         [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        private AutoGrid Subject;
+    }
+
+    public class WhenRowSpanningWithMultipleColumns
+    {
+        public WhenRowSpanningWithMultipleColumns()
+        {
+            Subject = new AutoGrid
+            {
+                Columns = "Auto,Auto,Auto",
+                Orientation = Orientation.Horizontal,
+            };
+            var tallButton = new Button();
+            Grid.SetRowSpan(tallButton, 99);
+            Subject.Children.Add(tallButton);
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            Subject.PerformLayout();
+        }
+
+        [Fact] public void ShouldHaveTwoRows() => Subject.RowDefinitions.Count.Should().Be(2);
+        [Fact] public void ShouldHaveThreeColumns() => Subject.ColumnDefinitions.Count.Should().Be(3);
+
+        [Fact] public void ShouldHaveFirstChildAtZeroZero() => Subject.Children[0].Should().BeAtGridPosition(0, 0);
+        [Fact] public void ShouldHaveSecondChildAtOneZero() => Subject.Children[1].Should().BeAtGridPosition(0, 1);
+        [Fact] public void ShouldHaveThirdChildAtOneZero() => Subject.Children[2].Should().BeAtGridPosition(0, 2);
+        [Fact] public void ShouldHaveForthChildAtOneZero() => Subject.Children[3].Should().BeAtGridPosition(1, 1);
+        [Fact] public void ShouldHaveFifthChildAtOneZero() => Subject.Children[4].Should().BeAtGridPosition(1, 2);
+        private AutoGrid Subject;
+    }
+
+    public class WhenRowSpanningWithMultipleColumnsVertical
+    {
+        public WhenRowSpanningWithMultipleColumnsVertical()
+        {
+            Subject = new AutoGrid
+            {
+                Rows = "Auto,Auto",
+                Orientation = Orientation.Vertical,
+            };
+            var wideButton = new Button();
+            Grid.SetColumnSpan(wideButton, 99);
+            Subject.Children.Add(wideButton);
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            Subject.Children.Add(new Button());
+            Subject.PerformLayout();
+        }
+
+        [Fact] public void ShouldHaveTwoRows() => Subject.RowDefinitions.Count.Should().Be(2);
+        [Fact] public void ShouldHaveThreeColumns() => Subject.ColumnDefinitions.Count.Should().Be(3);
+
+        [Fact] public void ShouldHaveFirstChildAtZeroZero() => Subject.Children[0].Should().BeAtGridPosition(0,0);
+        [Fact] public void ShouldHaveSecondChildAtOneZero() => Subject.Children[1].Should().BeAtGridPosition(1,0);
+        [Fact] public void ShouldHaveThirdChildAtOneZero() => Subject.Children[2].Should().BeAtGridPosition(1,1);
+        [Fact] public void ShouldHaveForthChildAtOneZero() => Subject.Children[3].Should().BeAtGridPosition(1,2);
+        [Fact] public void ShouldHaveFifthChildAtOneZero() => Subject.Children[4].Should().BeAtGridPosition(1,3);
+
         private AutoGrid Subject;
     }
 
