@@ -22,6 +22,7 @@ deploy:
     branch: master
 - provider: GitHub
   tag: v$(appveyor_build_version)
+  description: 'Minor bug fixes and tech debt payback. Row and column spans should work better.'
   auth_token:
     secure: EuFsrLWBjFwHWvjJc41uWCOWA5+h0OzZuUrnMgqyOnYvQ6omg6UiDGTQQwWnm5pk
   on:
