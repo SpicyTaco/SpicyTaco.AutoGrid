@@ -1,0 +1,42 @@
+﻿<Window x:Class="AutoGridSampleNET5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:autoGrid="clr-namespace:AutoGrid;assembly=AutoGrid"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <autoGrid:StackPanel MarginBetweenChildren="10" Margin="20">
+            <TextBlock Text="Here is where you can throw some simple description text for your form"/>
+            <autoGrid:AutoGrid Columns="*,200,*,200" ChildMargin="5" Margin="-5">
+                <Label Content="First Name"/>
+                <TextBox/>
+                <Label Content="Last Name"/>
+                <TextBox/>
+                <Label Content="Email"/>
+                <TextBox/>
+                <Label Content="Phone Number"/>
+                <TextBox/>
+                <Label Content="Home Address"/>
+                <TextBox/>
+                <Label Content="Country"/>
+                <TextBox/>
+            </autoGrid:AutoGrid>
+            <autoGrid:StackPanel autoGrid:StackPanel.Fill="Fill" MarginBetweenChildren="10">
+                <TextBlock TextWrapping="Wrap" Visibility="Visible" Text="Lebowski ipsum you think veer kidding und making mit de funny stuff? Dolor sit amet, consectetur. Are they gonna hurt us, Walter? Adipiscing elit praesent ac magna justo pellentesque ac. I mean his wife goes out and owes money and they pee on my rug. Lectus quis elit blandit fringilla a ut turpis praesent felis ligula, malesuada suscipit malesuada. And so, Theodore Donald Karabotsos, in accordance with what we think your dying wishes might well have been, we commit your mortal remains to the bosom of the Pacific Ocean, which you loved so well. Non, ultrices non urna sed orci ipsum, placerat id condimentum rutrum, rhoncus ac lorem."/>
+                <TextBlock Text="Some" HorizontalAlignment="Center"/>
+                <TextBlock Text="More" Visibility="Collapsed" HorizontalAlignment="Center"/>
+                <TextBlock Text="Text" HorizontalAlignment="Center"/>
+            </autoGrid:StackPanel>
+            <autoGrid:StackPanel Orientation="Horizontal" MarginBetweenChildren="20" Margin="10">
+                <Button Content="Info" />
+                <Button Content="Info" Visibility="Visible" autoGrid:StackPanel.Fill="Fill" />
+                <Button Content="Cancel"/>
+                <Button Content="Save" Visibility="Collapsed"/>
+                <Button Content="Save"/>
+                <Button Content="Save" autoGrid:StackPanel.Fill="Fill"/>
+            </autoGrid:StackPanel>
+        </autoGrid:StackPanel>
+    </Grid>
+</Window>
