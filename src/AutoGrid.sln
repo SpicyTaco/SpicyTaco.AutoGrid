@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGrid", "AutoGrid\AutoGrid.csproj", "{60440EDD-CC03-479D-AA9D-7C6E53A57630}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGrid", "AutoGrid\AutoGrid.csproj", "{60440EDD-CC03-479D-AA9D-7C6E53A57630}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGrid.Tests", "AutoGrid.Tests\AutoGrid.Tests.csproj", "{D3DF2A55-FF73-4BC5-B1F4-2B71B3BC523A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGrid.Tests", "AutoGrid.Tests\AutoGrid.Tests.csproj", "{D3DF2A55-FF73-4BC5-B1F4-2B71B3BC523A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoGridSampleNET5", "AutoGridSampleNET5\AutoGridSampleNET5.csproj", "{994B4629-C448-4F48-A901-DDB5A7DD96EF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoGridSample", "AutoGridSample\AutoGridSample.csproj", "{9E27C0EB-65CA-4C87-AD31-88AB40458BEE}"
 EndProject
@@ -23,6 +25,10 @@ Global
 		{D3DF2A55-FF73-4BC5-B1F4-2B71B3BC523A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3DF2A55-FF73-4BC5-B1F4-2B71B3BC523A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3DF2A55-FF73-4BC5-B1F4-2B71B3BC523A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{994B4629-C448-4F48-A901-DDB5A7DD96EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{994B4629-C448-4F48-A901-DDB5A7DD96EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{994B4629-C448-4F48-A901-DDB5A7DD96EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{994B4629-C448-4F48-A901-DDB5A7DD96EF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9E27C0EB-65CA-4C87-AD31-88AB40458BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9E27C0EB-65CA-4C87-AD31-88AB40458BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E27C0EB-65CA-4C87-AD31-88AB40458BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FDDC486-D357-41D1-A07D-4BF1A9ACD577}
 	EndGlobalSection
 EndGlobal
