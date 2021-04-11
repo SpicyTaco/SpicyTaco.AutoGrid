@@ -20,7 +20,7 @@ jobs:
       Nuspec_File_Path: AutoGrid/AutoGrid.nuspec
       PROJECT_PATH: AutoGrid/AutoGrid.csproj
       VERSION: 2.0.0.${{ github.run_number }}-prerelease
-      ARTIFACTS_PATH: ../artifacts
+      ARTIFACTS_PATH: ${{ github.workspace }}/artifacts
     
     steps:
     - name: Checkout
