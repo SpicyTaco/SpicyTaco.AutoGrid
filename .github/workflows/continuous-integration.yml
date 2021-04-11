@@ -18,6 +18,7 @@ jobs:
       Solution_Name: AutoGrid.sln
       Test_Project_Path: AutoGrid.Tests/AutoGrid.Tests.csproj
       Nuspec_File_Path: AutoGrid/AutoGrid.nuspec
+      PROJECT_PATH: AutoGrid/AutoGrid.csproj
       VERSION: 2.0.0.${{ github.run_number }}-prerelease
       ARTIFACTS_PATH: ../artifacts
     
@@ -59,7 +60,7 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
     - name: Create the NuGet package
-      run: nuget pack $env:Nuspec_File_Path -Version ${{ env.VERSION }} -OutputDirectory ${{ env.ARTIFACTS_PATH }}/nuget
+      run: nuget pack $env:PROJECT_PATH -Build -Version ${{ env.VERSION }} -OutputDirectory ${{ env.ARTIFACTS_PATH }}/nuget
     
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
