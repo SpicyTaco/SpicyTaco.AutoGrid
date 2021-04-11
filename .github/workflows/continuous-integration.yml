@@ -17,7 +17,7 @@ jobs:
     env:
       Solution_Name: AutoGrid.sln
       Test_Project_Path: AutoGrid.Tests/AutoGrid.Tests.csproj
-      Dotnet_Version: '5.0.x'
+      Dotnet_Version: 5.0.x
     
     steps:
     - name: Checkout
