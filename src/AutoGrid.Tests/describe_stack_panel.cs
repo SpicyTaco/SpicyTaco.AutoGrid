@@ -10,7 +10,7 @@ namespace AutoGrid.Tests
 {
     public class StackPanelMeasureShould
     {
-        [Fact]
+        [MyTestFact]
         public void HaveDesiredSizeOfZeroWhenNoChildren()
         {
             var subject = new StackPanel();
@@ -18,7 +18,7 @@ namespace AutoGrid.Tests
             subject.DesiredSize.ShouldBeEquivalentTo(new Size());
         }
 
-        [Fact]
+        [MyTestFact]
         public void HaveDesiredSizeOfOneHundredWithChild()
         {
             var subject = new StackPanel();
@@ -32,7 +32,7 @@ namespace AutoGrid.Tests
             subject.DesiredSize.ShouldBeEquivalentTo(new Size(100, 100));
         }
 
-        [Theory]
+        [MyTestTheory]
         [InlineData(1, Orientation.Vertical, 100, 100)]
         [InlineData(3, Orientation.Vertical, 100, 300)]
         [InlineData(3, Orientation.Horizontal, 300, 100)]
@@ -48,7 +48,7 @@ namespace AutoGrid.Tests
             subject.DesiredSize.ShouldBeEquivalentTo(new Size(expectedWidth, expectedHeight));
         }
 
-        [Fact]
+        [MyTestFact]
         public void SplitSpaceWhenTwoFills()
         {
             var subject = new StackPanel();

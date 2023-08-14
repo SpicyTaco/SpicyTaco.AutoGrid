@@ -10,7 +10,7 @@ namespace AutoGrid.Tests
 {
     public class ParseShould
     {
-        [Fact]
+        [MyTestFact]
         public void HaveGridLengthOfThreeWhenParsingNumbers()
         {
             var result = AutoGrid.Parse("3,3,3,3");
@@ -18,7 +18,7 @@ namespace AutoGrid.Tests
                 x.Should().Be(new GridLength(3)));
         }
 
-        [Fact]
+        [MyTestFact]
         public void HaveGridLengthOfThreeWhenParsingStars()
         {
             var result = AutoGrid.Parse("*,*,*,*");
@@ -38,14 +38,14 @@ namespace AutoGrid.Tests
             _sut.PerformLayout();
         }
 
-        [Fact] public void HaveOneRow() => _sut.RowDefinitions.Count.Should().Be(1);
-        [Fact] public void HaveTwoColumns() => _sut.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void HaveOneRow() => _sut.RowDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void HaveTwoColumns() => _sut.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void MakeFirstChildRowIndexZero() => Grid.GetRow(_sut.Children[0]).Should().Be(0);
-        [Fact] public void MakeFirstChildColumnIndexZero() => Grid.GetColumn(_sut.Children[0]).Should().Be(0);
+        [MyTestFact] public void MakeFirstChildRowIndexZero() => Grid.GetRow(_sut.Children[0]).Should().Be(0);
+        [MyTestFact] public void MakeFirstChildColumnIndexZero() => Grid.GetColumn(_sut.Children[0]).Should().Be(0);
 
-        [Fact] public void MakeSecondChildRowIndexZero() => Grid.GetRow(_sut.Children[1]).Should().Be(0);
-        [Fact] public void MakeSecondChildColumnIndexOne() => Grid.GetColumn(_sut.Children[1]).Should().Be(1);
+        [MyTestFact] public void MakeSecondChildRowIndexZero() => Grid.GetRow(_sut.Children[1]).Should().Be(0);
+        [MyTestFact] public void MakeSecondChildColumnIndexOne() => Grid.GetColumn(_sut.Children[1]).Should().Be(1);
         private readonly AutoGrid _sut;
     }
 
@@ -61,14 +61,14 @@ namespace AutoGrid.Tests
             _sut.PerformLayout();
         }
 
-        [Fact] public void HaveOneRow() => _sut.RowDefinitions.Count.Should().Be(1);
-        [Fact] public void HaveTwoColumns() => _sut.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void HaveOneRow() => _sut.RowDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void HaveTwoColumns() => _sut.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void MakeFirstChildRowIndexZero() => Grid.GetRow(_sut.Children[0]).Should().Be(0);
-        [Fact] public void MakeFirstChildColumnIndexZero() => Grid.GetColumn(_sut.Children[0]).Should().Be(0);
+        [MyTestFact] public void MakeFirstChildRowIndexZero() => Grid.GetRow(_sut.Children[0]).Should().Be(0);
+        [MyTestFact] public void MakeFirstChildColumnIndexZero() => Grid.GetColumn(_sut.Children[0]).Should().Be(0);
 
-        [Fact] public void MakeSecondChildRowIndexZero() => Grid.GetRow(_sut.Children[1]).Should().Be(0);
-        [Fact] public void MakeSecondChildColumnIndexOne() => Grid.GetColumn(_sut.Children[1]).Should().Be(1);
+        [MyTestFact] public void MakeSecondChildRowIndexZero() => Grid.GetRow(_sut.Children[1]).Should().Be(0);
+        [MyTestFact] public void MakeSecondChildColumnIndexOne() => Grid.GetColumn(_sut.Children[1]).Should().Be(1);
         private readonly AutoGrid _sut;
     }
 
@@ -84,14 +84,14 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(2);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(1);
 
-        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(1);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(0);
         private AutoGrid Subject;
     }
 
@@ -107,11 +107,11 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
         private AutoGrid Subject;
     }
 
@@ -126,11 +126,11 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
         private AutoGrid Subject;
     }
 
@@ -145,11 +145,11 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
         private AutoGrid Subject;
     }
 
@@ -168,26 +168,26 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        [Fact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
-        [Fact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        [MyTestFact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
+        [MyTestFact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
 
-        [Fact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
-        [Fact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
+        [MyTestFact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
+        [MyTestFact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
 
-        [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
-        [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        [MyTestFact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
+        [MyTestFact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
 
-        [Fact] public void should_make_sixth_child_row_index_two() => Grid.GetRow(Subject.Children[5]).Should().Be(2);
-        [Fact] public void should_make_sixth_child_column_index_one() => Grid.GetColumn(Subject.Children[5]).Should().Be(1);
+        [MyTestFact] public void should_make_sixth_child_row_index_two() => Grid.GetRow(Subject.Children[5]).Should().Be(2);
+        [MyTestFact] public void should_make_sixth_child_column_index_one() => Grid.GetColumn(Subject.Children[5]).Should().Be(1);
         private AutoGrid Subject;
     }
 
@@ -206,26 +206,26 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(2);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
 
-        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        [Fact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(0);
-        [Fact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(2);
+        [MyTestFact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(0);
+        [MyTestFact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(2);
 
-        [Fact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
-        [Fact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(0);
+        [MyTestFact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
+        [MyTestFact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(0);
 
-        [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(1);
-        [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(1);
+        [MyTestFact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(1);
+        [MyTestFact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(1);
 
-        [Fact] public void should_make_sixth_child_row_index_two() => Grid.GetRow(Subject.Children[5]).Should().Be(1);
-        [Fact] public void should_make_sixth_child_column_index_one() => Grid.GetColumn(Subject.Children[5]).Should().Be(2);
+        [MyTestFact] public void should_make_sixth_child_row_index_two() => Grid.GetRow(Subject.Children[5]).Should().Be(1);
+        [MyTestFact] public void should_make_sixth_child_column_index_one() => Grid.GetColumn(Subject.Children[5]).Should().Be(2);
         private AutoGrid Subject;
     }
 
@@ -245,23 +245,23 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        [Fact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
-        [Fact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        [MyTestFact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
+        [MyTestFact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
 
-        [Fact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
-        [Fact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
+        [MyTestFact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
+        [MyTestFact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
 
-        [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
-        [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        [MyTestFact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
+        [MyTestFact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
         private AutoGrid Subject;
     }
 
@@ -284,14 +284,14 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void ShouldHaveTwoRows() => Subject.RowDefinitions.Count.Should().Be(2);
-        [Fact] public void ShouldHaveThreeColumns() => Subject.ColumnDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void ShouldHaveTwoRows() => Subject.RowDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void ShouldHaveThreeColumns() => Subject.ColumnDefinitions.Count.Should().Be(3);
 
-        [Fact] public void ShouldHaveFirstChildAtZeroZero() => Subject.Children[0].Should().BeAtGridPosition(0, 0);
-        [Fact] public void ShouldHaveSecondChildAtOneZero() => Subject.Children[1].Should().BeAtGridPosition(0, 1);
-        [Fact] public void ShouldHaveThirdChildAtOneZero() => Subject.Children[2].Should().BeAtGridPosition(0, 2);
-        [Fact] public void ShouldHaveForthChildAtOneZero() => Subject.Children[3].Should().BeAtGridPosition(1, 1);
-        [Fact] public void ShouldHaveFifthChildAtOneZero() => Subject.Children[4].Should().BeAtGridPosition(1, 2);
+        [MyTestFact] public void ShouldHaveFirstChildAtZeroZero() => Subject.Children[0].Should().BeAtGridPosition(0, 0);
+        [MyTestFact] public void ShouldHaveSecondChildAtOneZero() => Subject.Children[1].Should().BeAtGridPosition(0, 1);
+        [MyTestFact] public void ShouldHaveThirdChildAtOneZero() => Subject.Children[2].Should().BeAtGridPosition(0, 2);
+        [MyTestFact] public void ShouldHaveForthChildAtOneZero() => Subject.Children[3].Should().BeAtGridPosition(1, 1);
+        [MyTestFact] public void ShouldHaveFifthChildAtOneZero() => Subject.Children[4].Should().BeAtGridPosition(1, 2);
         private AutoGrid Subject;
     }
 
@@ -314,14 +314,14 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void ShouldHaveTwoRows() => Subject.RowDefinitions.Count.Should().Be(2);
-        [Fact] public void ShouldHaveThreeColumns() => Subject.ColumnDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void ShouldHaveTwoRows() => Subject.RowDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void ShouldHaveThreeColumns() => Subject.ColumnDefinitions.Count.Should().Be(3);
 
-        [Fact] public void ShouldHaveFirstChildAtZeroZero() => Subject.Children[0].Should().BeAtGridPosition(0,0);
-        [Fact] public void ShouldHaveSecondChildAtOneZero() => Subject.Children[1].Should().BeAtGridPosition(1,0);
-        [Fact] public void ShouldHaveThirdChildAtOneZero() => Subject.Children[2].Should().BeAtGridPosition(1,1);
-        [Fact] public void ShouldHaveForthChildAtOneZero() => Subject.Children[3].Should().BeAtGridPosition(1,2);
-        [Fact] public void ShouldHaveFifthChildAtOneZero() => Subject.Children[4].Should().BeAtGridPosition(1,3);
+        [MyTestFact] public void ShouldHaveFirstChildAtZeroZero() => Subject.Children[0].Should().BeAtGridPosition(0,0);
+        [MyTestFact] public void ShouldHaveSecondChildAtOneZero() => Subject.Children[1].Should().BeAtGridPosition(1,0);
+        [MyTestFact] public void ShouldHaveThirdChildAtOneZero() => Subject.Children[2].Should().BeAtGridPosition(1,1);
+        [MyTestFact] public void ShouldHaveForthChildAtOneZero() => Subject.Children[3].Should().BeAtGridPosition(1,2);
+        [MyTestFact] public void ShouldHaveFifthChildAtOneZero() => Subject.Children[4].Should().BeAtGridPosition(1,3);
 
         private AutoGrid Subject;
     }
@@ -340,23 +340,23 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        [Fact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
-        [Fact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        [MyTestFact] public void should_make_third_child_row_index_one() => Grid.GetRow(Subject.Children[2]).Should().Be(1);
+        [MyTestFact] public void should_make_third_child_column_index_zero() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
 
-        [Fact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
-        [Fact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
+        [MyTestFact] public void should_make_forth_child_row_index_one() => Grid.GetRow(Subject.Children[3]).Should().Be(1);
+        [MyTestFact] public void should_make_forth_child_column_index_one() => Grid.GetColumn(Subject.Children[3]).Should().Be(1);
 
-        [Fact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
-        [Fact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
+        [MyTestFact] public void should_make_fifth_child_row_index_two() => Grid.GetRow(Subject.Children[4]).Should().Be(2);
+        [MyTestFact] public void should_make_fifth_child_column_index_zero() => Grid.GetColumn(Subject.Children[4]).Should().Be(0);
         private AutoGrid Subject;
     }
 
@@ -377,17 +377,17 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
-        [Fact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_two_columns() => Subject.ColumnDefinitions.Count.Should().Be(2);
 
-        [Fact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
-        [Fact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_row_index_zero() => Grid.GetRow(Subject.Children[0]).Should().Be(0);
+        [MyTestFact] public void should_make_first_child_column_index_zero() => Grid.GetColumn(Subject.Children[0]).Should().Be(0);
 
-        [Fact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
-        [Fact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
+        [MyTestFact] public void should_make_second_child_row_index_zero() => Grid.GetRow(Subject.Children[1]).Should().Be(0);
+        [MyTestFact] public void should_make_second_child_column_index_one() => Grid.GetColumn(Subject.Children[1]).Should().Be(1);
 
-        [Fact] public void should_not_change_third_child_row_index() => Grid.GetRow(Subject.Children[2]).Should().Be(0);
-        [Fact] public void should_not_change_third_child_column_index() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
+        [MyTestFact] public void should_not_change_third_child_row_index() => Grid.GetRow(Subject.Children[2]).Should().Be(0);
+        [MyTestFact] public void should_not_change_third_child_column_index() => Grid.GetColumn(Subject.Children[2]).Should().Be(0);
         private AutoGrid Subject;
     }
 
@@ -406,12 +406,12 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_three_rows() => Subject.RowDefinitions.Count.Should().Be(3);
-        [Fact] public void should_have_one_column() => Subject.ColumnDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_three_rows() => Subject.RowDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void should_have_one_column() => Subject.ColumnDefinitions.Count.Should().Be(1);
 
-        [Fact] public void should_make_first_child_row_height_auto() => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
-        [Fact] public void should_make_second_child_row_height_auto() => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
-        [Fact] public void should_make_third_child_row_height_star() => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
+        [MyTestFact] public void should_make_first_child_row_height_auto() => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
+        [MyTestFact] public void should_make_second_child_row_height_auto() => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
+        [MyTestFact] public void should_make_third_child_row_height_star() => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
         private AutoGrid Subject;
     }
 
@@ -430,12 +430,12 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
-        [Fact] public void should_have_three_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_three_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
 
-        [Fact] public void should_make_first_child_column_width_auto() => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
-        [Fact] public void should_make_second_child_column_width_auto() => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
-        [Fact] public void should_make_third_child_column_width_star() => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
+        [MyTestFact] public void should_make_first_child_column_width_auto() => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
+        [MyTestFact] public void should_make_second_child_column_width_auto() => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
+        [MyTestFact] public void should_make_third_child_column_width_star() => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
         private AutoGrid Subject;
     }
 
@@ -455,12 +455,12 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_three_rows() => Subject.RowDefinitions.Count.Should().Be(3);
-        [Fact] public void should_have_one_column() => Subject.ColumnDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_three_rows() => Subject.RowDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void should_have_one_column() => Subject.ColumnDefinitions.Count.Should().Be(1);
 
-        [Fact] public void should_make_first_child_row_height_auto() => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
-        [Fact] public void should_make_second_child_row_height_auto() => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
-        [Fact] public void should_make_third_child_row_height_star() => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
+        [MyTestFact] public void should_make_first_child_row_height_auto() => Subject.RowDefinitions[0].Height.Should().Be(GridLength.Auto);
+        [MyTestFact] public void should_make_second_child_row_height_auto() => Subject.RowDefinitions[1].Height.Should().Be(GridLength.Auto);
+        [MyTestFact] public void should_make_third_child_row_height_star() => Subject.RowDefinitions[2].Height.Should().Be(new GridLength(1, GridUnitType.Star));
         private AutoGrid Subject;
     }
 
@@ -480,12 +480,12 @@ namespace AutoGrid.Tests
             Subject.PerformLayout();
         }
 
-        [Fact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
-        [Fact] public void should_have_three_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
+        [MyTestFact] public void should_have_one_row() => Subject.RowDefinitions.Count.Should().Be(1);
+        [MyTestFact] public void should_have_three_columns() => Subject.ColumnDefinitions.Count.Should().Be(3);
 
-        [Fact] public void should_make_first_child_column_width_auto() => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
-        [Fact] public void should_make_second_child_column_width_auto() => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
-        [Fact] public void should_make_third_child_column_width_star() => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
+        [MyTestFact] public void should_make_first_child_column_width_auto() => Subject.ColumnDefinitions[0].Width.Should().Be(GridLength.Auto);
+        [MyTestFact] public void should_make_second_child_column_width_auto() => Subject.ColumnDefinitions[1].Width.Should().Be(GridLength.Auto);
+        [MyTestFact] public void should_make_third_child_column_width_star() => Subject.ColumnDefinitions[2].Width.Should().Be(new GridLength(1, GridUnitType.Star));
         private AutoGrid Subject;
     }
 }
