@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFrameworks>net40</TargetFrameworks>
+		<TargetFrameworks>net40;net5.0-windows7.0;net6.0-windows7.0;net7.0-windows7.0</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
 		<UseWPF>true</UseWPF>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
